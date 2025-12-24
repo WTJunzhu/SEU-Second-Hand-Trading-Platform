@@ -1,9 +1,284 @@
 {% extends "base.html" %}
 
+{% block title %}浏览商品 - 东南大学校园二手交易平台{% endblock %}
+
 {% block content %}
-<h1>商品列表</h1>
-<!-- 商品展示区域 -->
-<div class="items-container">
-    <!-- 商品项将在这里显示 -->
+<div class="page-header">
+    <div class="container">
+        <h1 id="page-title">浏览商品</h1>
+        <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 0;" id="page-subtitle"></p>
+    </div>
 </div>
+
+<div class="container">
+    <div class="grid grid--cols-4">
+        <!-- 左侧筛选栏 -->
+        <div style="grid-column: 1 / 2;">
+            <div class="card" style="position: sticky; top: 80px;">
+                <div class="card__header">
+                    <h3 style="margin: 0;">筛选条件</h3>
+                </div>
+                <div class="card__body" style="padding: var(--spacing-md);">
+                    <!-- 分类 -->
+                    <div class="form-group">
+                        <label class="form-label">分类</label>
+                        <select id="category-filter" class="form-select">
+                            <option value="">全部分类</option>
+                            <option value="books">教材书籍</option>
+                            <option value="electronics">电子产品</option>
+                            <option value="daily">生活用品</option>
+                            <option value="sports">运动器材</option>
+                        </select>
+                    </div>
+
+                    <!-- 价格范围 -->
+                    <div class="form-group">
+                        <label class="form-label">价格范围</label>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-sm);">
+                            <input type="number" id="min-price" class="form-input" placeholder="最小" min="0">
+                            <input type="number" id="max-price" class="form-input" placeholder="最大" min="0">
+                        </div>
+                    </div>
+
+                    <!-- 排序 -->
+                    <div class="form-group">
+                        <label class="form-label">排序</label>
+                        <select id="sort-filter" class="form-select">
+                            <option value="latest">最新上架</option>
+                            <option value="popular">最受欢迎</option>
+                            <option value="price-asc">价格：低到高</option>
+                            <option value="price-desc">价格：高到低</option>
+                        </select>
+                    </div>
+
+                    <!-- 应用筛选 -->
+                    <button id="apply-filter" class="btn btn--primary btn--block">应用筛选</button>
+                    <button id="reset-filter" class="btn btn--secondary btn--block" style="margin-top: var(--spacing-sm);">重置筛选</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧内容区 -->
+        <div style="grid-column: 2 / -1;">
+            <!-- 空状态 -->
+            <div id="empty-state" class="empty-state" style="display: none;">
+                <div class="empty-state__icon">📭</div>
+                <div class="empty-state__title">没有找到商品</div>
+                <p class="empty-state__description">尝试调整筛选条件或搜索关键词</p>
+            </div>
+
+            <!-- 商品列表 -->
+            <div class="grid grid--cols-3" id="items-container">
+                <!-- 骨架屏加载 -->
+                <div class="skeleton" style="height: 300px;"></div>
+                <div class="skeleton" style="height: 300px;"></div>
+                <div class="skeleton" style="height: 300px;"></div>
+                <div class="skeleton" style="height: 300px;"></div>
+                <div class="skeleton" style="height: 300px;"></div>
+                <div class="skeleton" style="height: 300px;"></div>
+            </div>
+
+            <!-- 分页 -->
+            <div id="pagination" class="pagination"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+/**
+ * 商品列表页面逻辑
+ */
+class ItemsPage {
+    constructor() {
+        this.currentPage = 1;
+        this.pageSize = 12;
+        this.filters = {
+            query: new URLSearchParams(window.location.search).get('query') || '',
+            category: new URLSearchParams(window.location.search).get('category') || '',
+            minPrice: null,
+            maxPrice: null,
+            sort: 'latest',
+        };
+        this.init();
+    }
+
+    init() {
+        this.setupEventListeners();
+        this.updatePageTitle();
+        this.loadItems();
+    }
+
+    setupEventListeners() {
+        document.getElementById('category-filter').addEventListener('change', (e) => {
+            this.filters.category = e.target.value;
+        });
+
+        document.getElementById('min-price').addEventListener('change', (e) => {
+            this.filters.minPrice = e.target.value ? parseInt(e.target.value) : null;
+        });
+
+        document.getElementById('max-price').addEventListener('change', (e) => {
+            this.filters.maxPrice = e.target.value ? parseInt(e.target.value) : null;
+        });
+
+        document.getElementById('sort-filter').addEventListener('change', (e) => {
+            this.filters.sort = e.target.value;
+        });
+
+        document.getElementById('apply-filter').addEventListener('click', () => {
+            this.currentPage = 1;
+            this.loadItems();
+        });
+
+        document.getElementById('reset-filter').addEventListener('click', () => {
+            this.filters = {
+                query: this.filters.query,
+                category: '',
+                minPrice: null,
+                maxPrice: null,
+                sort: 'latest',
+            };
+            document.getElementById('category-filter').value = '';
+            document.getElementById('min-price').value = '';
+            document.getElementById('max-price').value = '';
+            document.getElementById('sort-filter').value = 'latest';
+            this.currentPage = 1;
+            this.loadItems();
+        });
+    }
+
+    updatePageTitle() {
+        const titleEl = document.getElementById('page-title');
+        const subtitleEl = document.getElementById('page-subtitle');
+
+        if (this.filters.query) {
+            titleEl.textContent = `"${this.filters.query}" 的搜索结果`;
+            subtitleEl.textContent = '为您查询的商品列表';
+        } else if (this.filters.category) {
+            const categoryNames = {
+                'books': '教材书籍',
+                'electronics': '电子产品',
+                'daily': '生活用品',
+                'sports': '运动器材',
+            };
+            titleEl.textContent = categoryNames[this.filters.category] || '浏览商品';
+            subtitleEl.textContent = '该分类的所有商品';
+        } else {
+            titleEl.textContent = '浏览商品';
+            subtitleEl.textContent = '校园内的精品二手商品';
+        }
+    }
+
+    async loadItems() {
+        try {
+            LoadingManager.show('加载商品中...');
+            
+            const params = {
+                page: this.currentPage,
+                limit: this.pageSize,
+                query: this.filters.query,
+                category: this.filters.category,
+                minPrice: this.filters.minPrice,
+                maxPrice: this.filters.maxPrice,
+                sort: this.filters.sort,
+            };
+
+            const response = await API.item.search(params);
+            LoadingManager.hide();
+
+            this.renderItems(response.data?.items || []);
+            this.renderPagination(response.data?.pagination || {});
+
+            if (!response.data?.items || response.data.items.length === 0) {
+                document.getElementById('empty-state').style.display = 'block';
+                document.getElementById('items-container').style.display = 'none';
+            } else {
+                document.getElementById('empty-state').style.display = 'none';
+                document.getElementById('items-container').style.display = 'grid';
+            }
+        } catch (error) {
+            LoadingManager.hide();
+            NotificationManager.error('加载商品失败，请稍后重试');
+            console.error('加载商品失败:', error);
+        }
+    }
+
+    renderItems(items) {
+        const container = document.getElementById('items-container');
+        
+        if (items.length === 0) {
+            container.innerHTML = '';
+            return;
+        }
+
+        container.innerHTML = items.map(item => `
+            <a href="/items/${item.id}" class="product-card" style="text-decoration: none; color: inherit;">
+                <img src="${item.image || '/static/images/placeholder.png'}" alt="${item.title}" class="product-card__image">
+                <div class="product-card__content">
+                    <h3 class="product-card__title">${item.title}</h3>
+                    <p class="product-card__description">${item.description.substring(0, 60)}...</p>
+                    <div class="product-card__price">¥${item.price.toFixed(2)}</div>
+                    <div class="product-card__seller text-sm text-muted">卖家: ${item.seller_name}</div>
+                    ${item.stock > 0 ? '' : '<span class="product-card__badge">缺货</span>'}
+                </div>
+            </a>
+        `).join('');
+    }
+
+    renderPagination(pagination) {
+        const container = document.getElementById('pagination');
+        const totalPages = pagination.total_pages || 1;
+
+        if (totalPages <= 1) {
+            container.innerHTML = '';
+            return;
+        }
+
+        let html = '';
+
+        // 上一页
+        if (this.currentPage > 1) {
+            html += `<a href="#" class="pagination__item" data-page="${this.currentPage - 1}">← 上一页</a>`;
+        } else {
+            html += `<span class="pagination__item is-disabled">← 上一页</span>`;
+        }
+
+        // 页码
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === this.currentPage) {
+                html += `<span class="pagination__item is-active">${i}</span>`;
+            } else {
+                html += `<a href="#" class="pagination__item" data-page="${i}">${i}</a>`;
+            }
+        }
+
+        // 下一页
+        if (this.currentPage < totalPages) {
+            html += `<a href="#" class="pagination__item" data-page="${this.currentPage + 1}">下一页 →</a>`;
+        } else {
+            html += `<span class="pagination__item is-disabled">下一页 →</span>`;
+        }
+
+        container.innerHTML = html;
+
+        // 分页事件
+        container.querySelectorAll('a.pagination__item').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.currentPage = parseInt(link.dataset.page);
+                this.loadItems();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    }
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', () => {
+    new ItemsPage();
+});
+</script>
 {% endblock %}

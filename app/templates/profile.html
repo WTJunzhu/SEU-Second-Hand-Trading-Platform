@@ -1,23 +1,395 @@
 {% extends "base.html" %}
 
+{% block title %}个人资料 - 东南大学校园二手交易平台{% endblock %}
+
 {% block content %}
-<h1>个人资料</h1>
-<!-- 用户个人信息 -->
-<div class="profile-container">
-    <div class="profile-info">
-        <h2>基本信息</h2>
-        <p>用户名: <span id="username"></span></p>
-        <p>邮箱: <span id="email"></span></p>
-        <p>注册时间: <span id="register-date"></span></p>
-        <button id="edit-profile">编辑资料</button>
+<div class="page-header">
+    <div class="container">
+        <h1>个人中心</h1>
+        <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 0;">管理您的账户和订单信息</p>
     </div>
-    
-    <div class="order-history">
-        <h2>交易历史</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>订单号</th>
+</div>
+
+<div class="container">
+    <div class="grid grid--cols-4">
+        <!-- 左侧菜单 -->
+        <div style="grid-column: 1 / 2;">
+            <div class="card" style="position: sticky; top: 80px;">
+                <div class="card__body" style="padding: 0;">
+                    <a href="#profile" class="tab-link is-active" style="display: block; padding: var(--spacing-md) var(--spacing-lg); border-bottom: 1px solid var(--color-border); cursor: pointer;">👤 基本信息</a>
+                    <a href="#orders" class="tab-link" style="display: block; padding: var(--spacing-md) var(--spacing-lg); border-bottom: 1px solid var(--color-border); cursor: pointer;">📦 我的订单</a>
+                    <a href="#published" class="tab-link" style="display: block; padding: var(--spacing-md) var(--spacing-lg); border-bottom: 1px solid var(--color-border); cursor: pointer;">📄 我的发布</a>
+                    <a href="#favorites" class="tab-link" style="display: block; padding: var(--spacing-md) var(--spacing-lg); border-bottom: 1px solid var(--color-border); cursor: pointer;">❤️ 我的收藏</a>
+                    <a href="#settings" class="tab-link" style="display: block; padding: var(--spacing-md) var(--spacing-lg); cursor: pointer;">⚙️ 账户设置</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧内容 -->
+        <div style="grid-column: 2 / -1;">
+            <!-- 基本信息标签 -->
+            <div id="profile-tab" class="tab-content is-active">
+                <div class="card" style="margin-bottom: var(--spacing-lg);">
+                    <div class="card__header">
+                        <h2 style="margin: 0;">基本信息</h2>
+                    </div>
+                    <div class="card__body">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-2xl); margin-bottom: var(--spacing-2xl);">
+                            <!-- 头像 -->
+                            <div style="text-align: center;">
+                                <div style="width: 120px; height: 120px; border-radius: 50%; background: var(--color-bg-tertiary); display: flex; align-items: center; justify-content: center; font-size: 48px; margin: 0 auto var(--spacing-md);">
+                                    👤
+                                </div>
+                                <button class="btn btn--secondary btn--sm">更换头像</button>
+                            </div>
+
+                            <!-- 信息 -->
+                            <div>
+                                <div style="margin-bottom: var(--spacing-lg);">
+                                    <div class="text-muted" style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-sm);">用户名</div>
+                                    <div class="font-semibold" id="profile-username"></div>
+                                </div>
+                                <div style="margin-bottom: var(--spacing-lg);">
+                                    <div class="text-muted" style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-sm);">邮箱</div>
+                                    <div class="font-semibold" id="profile-email"></div>
+                                </div>
+                                <div style="margin-bottom: var(--spacing-lg);">
+                                    <div class="text-muted" style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-sm);">注册时间</div>
+                                    <div class="font-semibold" id="profile-created-at"></div>
+                                </div>
+                                <div style="margin-bottom: var(--spacing-lg);">
+                                    <div class="text-muted" style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-sm);">信用评分</div>
+                                    <div class="font-semibold">
+                                        <span id="profile-rating">5.0</span> ⭐
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 编辑按钮 -->
+                        <button id="edit-profile-btn" class="btn btn--primary">编辑基本信息</button>
+                    </div>
+                </div>
+
+                <!-- 统计信息 -->
+                <div class="grid grid--cols-3">
+                    <div class="card" style="text-align: center; padding: var(--spacing-lg);">
+                        <div style="font-size: 32px; margin-bottom: var(--spacing-md);">📦</div>
+                        <div class="text-muted" style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-sm);">已发布</div>
+                        <div class="font-bold" style="font-size: var(--font-size-2xl); color: var(--color-primary);" id="stats-published">0</div>
+                    </div>
+                    <div class="card" style="text-align: center; padding: var(--spacing-lg);">
+                        <div style="font-size: 32px; margin-bottom: var(--spacing-md);">✅</div>
+                        <div class="text-muted" style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-sm);">已售出</div>
+                        <div class="font-bold" style="font-size: var(--font-size-2xl); color: var(--color-success);" id="stats-sold">0</div>
+                    </div>
+                    <div class="card" style="text-align: center; padding: var(--spacing-lg);">
+                        <div style="font-size: 32px; margin-bottom: var(--spacing-md);">❤️</div>
+                        <div class="text-muted" style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-sm);">收藏数</div>
+                        <div class="font-bold" style="font-size: var(--font-size-2xl); color: var(--color-error);" id="stats-favorites">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 我的订单标签 -->
+            <div id="orders-tab" class="tab-content" style="display: none;">
+                <div class="card">
+                    <div class="card__header">
+                        <h2 style="margin: 0;">我的订单</h2>
+                    </div>
+                    <div class="card__body">
+                        <div id="orders-list" style="display: none;">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>订单号</th>
+                                        <th>商品</th>
+                                        <th>金额</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="orders-tbody">
+                                    <!-- 动态填充 -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="orders-empty" class="empty-state">
+                            <div class="empty-state__icon">📭</div>
+                            <div class="empty-state__title">暂无订单</div>
+                            <p class="empty-state__description">您还没有购买过任何商品</p>
+                            <a href="/" class="btn btn--primary">开始购物</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 我的发布标签 -->
+            <div id="published-tab" class="tab-content" style="display: none;">
+                <div class="card" style="margin-bottom: var(--spacing-lg);">
+                    <div class="card__header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h2 style="margin: 0;">我的发布</h2>
+                            <a href="/publish" class="btn btn--primary btn--sm">+ 发布新商品</a>
+                        </div>
+                    </div>
+                    <div class="card__body">
+                        <div id="published-list" style="display: none;">
+                            <div class="grid grid--cols-3" id="published-items">
+                                <!-- 动态填充 -->
+                            </div>
+                        </div>
+                        <div id="published-empty" class="empty-state">
+                            <div class="empty-state__icon">📄</div>
+                            <div class="empty-state__title">暂无发布</div>
+                            <p class="empty-state__description">您还没有发布过任何商品</p>
+                            <a href="/publish" class="btn btn--primary">立即发布</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 我的收藏标签 -->
+            <div id="favorites-tab" class="tab-content" style="display: none;">
+                <div class="card">
+                    <div class="card__header">
+                        <h2 style="margin: 0;">我的收藏</h2>
+                    </div>
+                    <div class="card__body">
+                        <div id="favorites-list" style="display: none;">
+                            <div class="grid grid--cols-4" id="favorites-items">
+                                <!-- 动态填充 -->
+                            </div>
+                        </div>
+                        <div id="favorites-empty" class="empty-state">
+                            <div class="empty-state__icon">❤️</div>
+                            <div class="empty-state__title">暂无收藏</div>
+                            <p class="empty-state__description">您还没有收藏过任何商品</p>
+                            <a href="/" class="btn btn--primary">浏览商品</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 账户设置标签 -->
+            <div id="settings-tab" class="tab-content" style="display: none;">
+                <div class="card" style="margin-bottom: var(--spacing-lg);">
+                    <div class="card__header">
+                        <h2 style="margin: 0;">修改密码</h2>
+                    </div>
+                    <div class="card__body">
+                        <form id="change-password-form">
+                            <div class="form-group">
+                                <label class="form-label">当前密码</label>
+                                <input type="password" name="current_password" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">新密码</label>
+                                <input type="password" name="new_password" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">确认新密码</label>
+                                <input type="password" name="confirm_password" class="form-input" required>
+                            </div>
+                            <button type="submit" class="btn btn--primary">修改密码</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card__header">
+                        <h2 style="margin: 0;">危险操作</h2>
+                    </div>
+                    <div class="card__body">
+                        <button id="delete-account-btn" class="btn btn--danger">删除账户</button>
+                        <p class="text-muted" style="font-size: var(--font-size-sm); margin-top: var(--spacing-md);">
+                            ⚠️ 删除账户后，所有数据将被永久删除，此操作无法撤销。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+/**
+ * 个人资料页面逻辑
+ */
+class ProfilePage {
+    constructor() {
+        this.user = AuthManager.getUser();
+        if (!this.user) {
+            window.location.href = '/login';
+            return;
+        }
+        this.init();
+    }
+
+    async init() {
+        this.renderProfile();
+        this.setupEventListeners();
+        this.loadUserData();
+    }
+
+    renderProfile() {
+        document.getElementById('profile-username').textContent = this.user.username;
+        document.getElementById('profile-email').textContent = this.user.email;
+        document.getElementById('profile-created-at').textContent = 
+            new Date(this.user.created_at).toLocaleDateString('zh-CN');
+    }
+
+    async loadUserData() {
+        try {
+            const response = await API.user.getCurrentUser();
+            const user = response.data;
+            
+            // 更新统计信息
+            document.getElementById('stats-published').textContent = user.stats?.published || 0;
+            document.getElementById('stats-sold').textContent = user.stats?.sold || 0;
+            document.getElementById('stats-favorites').textContent = user.stats?.favorites || 0;
+            document.getElementById('profile-rating').textContent = (user.rating || 5.0).toFixed(1);
+
+            // 加载订单
+            this.loadOrders();
+            // 加载发布
+            this.loadPublished();
+            // 加载收藏
+            this.loadFavorites();
+        } catch (error) {
+            console.error('加载用户数据失败:', error);
+        }
+    }
+
+    async loadOrders() {
+        try {
+            const response = await API.order.getUserOrders({ page: 1, limit: 10 });
+            const orders = response.data?.orders || [];
+
+            if (orders.length === 0) {
+                document.getElementById('orders-empty').style.display = 'block';
+                document.getElementById('orders-list').style.display = 'none';
+            } else {
+                document.getElementById('orders-list').style.display = 'block';
+                document.getElementById('orders-empty').style.display = 'none';
+                
+                const tbody = document.getElementById('orders-tbody');
+                tbody.innerHTML = orders.map(order => `
+                    <tr>
+                        <td>#${order.id}</td>
+                        <td>${order.items?.length || 0} 件商品</td>
+                        <td>¥${order.total_price.toFixed(2)}</td>
+                        <td><span class="badge badge--primary">${order.status}</span></td>
+                        <td><a href="/orders/${order.id}" class="btn btn--text">查看详情</a></td>
+                    </tr>
+                `).join('');
+            }
+        } catch (error) {
+            console.error('加载订单失败:', error);
+        }
+    }
+
+    async loadPublished() {
+        try {
+            const response = await API.item.getUserItems(this.user.id, { page: 1, limit: 6 });
+            const items = response.data || [];
+
+            if (items.length === 0) {
+                document.getElementById('published-empty').style.display = 'block';
+                document.getElementById('published-list').style.display = 'none';
+            } else {
+                document.getElementById('published-list').style.display = 'block';
+                document.getElementById('published-empty').style.display = 'none';
+                
+                const container = document.getElementById('published-items');
+                container.innerHTML = items.map(item => `
+                    <a href="/items/${item.id}" class="product-card" style="text-decoration: none; color: inherit;">
+                        <img src="${item.image || '/static/images/placeholder.png'}" alt="${item.title}" class="product-card__image">
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">${item.title}</h3>
+                            <div class="product-card__price">¥${item.price.toFixed(2)}</div>
+                            <div class="text-sm text-muted">库存: ${item.stock}</div>
+                        </div>
+                    </a>
+                `).join('');
+            }
+        } catch (error) {
+            console.error('加载发布失败:', error);
+        }
+    }
+
+    async loadFavorites() {
+        try {
+            const response = await API.recommend.getPersonalized({ limit: 8 });
+            const items = response.data || [];
+
+            if (items.length === 0) {
+                document.getElementById('favorites-empty').style.display = 'block';
+                document.getElementById('favorites-list').style.display = 'none';
+            } else {
+                document.getElementById('favorites-list').style.display = 'block';
+                document.getElementById('favorites-empty').style.display = 'none';
+                
+                const container = document.getElementById('favorites-items');
+                container.innerHTML = items.map(item => `
+                    <a href="/items/${item.id}" class="product-card" style="text-decoration: none; color: inherit;">
+                        <img src="${item.image || '/static/images/placeholder.png'}" alt="${item.title}" class="product-card__image">
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">${item.title}</h3>
+                            <div class="product-card__price">¥${item.price.toFixed(2)}</div>
+                        </div>
+                    </a>
+                `).join('');
+            }
+        } catch (error) {
+            console.error('加载收藏失败:', error);
+        }
+    }
+
+    setupEventListeners() {
+        // 标签页切换
+        document.querySelectorAll('.tab-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tabName = e.currentTarget.getAttribute('href').slice(1);
+                
+                document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('is-active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+                
+                e.currentTarget.classList.add('is-active');
+                document.getElementById(tabName + '-tab').style.display = 'block';
+            });
+        });
+
+        // 编辑资料
+        document.getElementById('edit-profile-btn').addEventListener('click', () => {
+            NotificationManager.info('编辑功能开发中');
+        });
+
+        // 修改密码
+        document.getElementById('change-password-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            NotificationManager.info('修改密码功能开发中');
+        });
+
+        // 删除账户
+        document.getElementById('delete-account-btn').addEventListener('click', () => {
+            if (confirm('确定要删除账户吗？此操作无法撤销。')) {
+                NotificationManager.info('删除账户功能开发中');
+            }
+        });
+    }
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', () => {
+    new ProfilePage();
+});
+</script>
+{% endblock %}
                     <th>商品</th>
                     <th>金额</th>
                     <th>状态</th>

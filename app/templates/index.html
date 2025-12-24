@@ -1,6 +1,163 @@
 {% extends "base.html" %}
 
+{% block title %}首页 - 东南大学校园二手交易平台{% endblock %}
+
 {% block content %}
-<h1>欢迎来到东南大学校园二手交易平台</h1>
-<!-- 首页内容 -->
+<!-- 欢迎横幅 -->
+<div class="page-header">
+    <div class="container">
+        <h1>欢迎来到 SEU 校园二手交易平台</h1>
+        <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 0;">
+            在这里，你可以安全、便捷地买卖校园内的二手物品
+        </p>
+    </div>
+</div>
+
+<!-- 主要内容 -->
+<div class="container">
+    <!-- 分类导航 -->
+    <section style="margin-bottom: var(--spacing-2xl);">
+        <h2 style="margin-bottom: var(--spacing-lg); text-align: center;">浏览分类</h2>
+        <div class="grid grid--cols-4">
+            <a href="/items?category=books" class="card flex flex--center flex--col" style="text-decoration: none; padding: var(--spacing-lg);">
+                <div style="font-size: 48px; margin-bottom: var(--spacing-md);">📖</div>
+                <h3 style="margin: 0;">教材书籍</h3>
+            </a>
+            <a href="/items?category=electronics" class="card flex flex--center flex--col" style="text-decoration: none; padding: var(--spacing-lg);">
+                <div style="font-size: 48px; margin-bottom: var(--spacing-md);">💻</div>
+                <h3 style="margin: 0;">电子产品</h3>
+            </a>
+            <a href="/items?category=daily" class="card flex flex--center flex--col" style="text-decoration: none; padding: var(--spacing-lg);">
+                <div style="font-size: 48px; margin-bottom: var(--spacing-md);">🛋️</div>
+                <h3 style="margin: 0;">生活用品</h3>
+            </a>
+            <a href="/items?category=sports" class="card flex flex--center flex--col" style="text-decoration: none; padding: var(--spacing-lg);">
+                <div style="font-size: 48px; margin-bottom: var(--spacing-md);">⚽</div>
+                <h3 style="margin: 0;">运动器材</h3>
+            </a>
+        </div>
+    </section>
+
+    <!-- 热门商品 -->
+    <section style="margin-bottom: var(--spacing-2xl);">
+        <div class="flex flex--between" style="margin-bottom: var(--spacing-lg); align-items: center;">
+            <h2 style="margin: 0;">🔥 热门商品</h2>
+            <a href="/items?sort=popular" class="btn btn--text">查看更多 →</a>
+        </div>
+        <div class="grid grid--cols-4" id="featured-items">
+            <!-- 由 JavaScript 动态加载 -->
+            <div class="skeleton" style="height: 300px;"></div>
+            <div class="skeleton" style="height: 300px;"></div>
+            <div class="skeleton" style="height: 300px;"></div>
+            <div class="skeleton" style="height: 300px;"></div>
+        </div>
+    </section>
+
+    <!-- 最新商品 -->
+    <section style="margin-bottom: var(--spacing-2xl);">
+        <div class="flex flex--between" style="margin-bottom: var(--spacing-lg); align-items: center;">
+            <h2 style="margin: 0;">✨ 最新上架</h2>
+            <a href="/items?sort=latest" class="btn btn--text">查看更多 →</a>
+        </div>
+        <div class="grid grid--cols-4" id="latest-items">
+            <!-- 由 JavaScript 动态加载 -->
+            <div class="skeleton" style="height: 300px;"></div>
+            <div class="skeleton" style="height: 300px;"></div>
+            <div class="skeleton" style="height: 300px;"></div>
+            <div class="skeleton" style="height: 300px;"></div>
+        </div>
+    </section>
+
+    <!-- 平台信息 -->
+    <section style="margin-bottom: var(--spacing-2xl);">
+        <h2 style="text-align: center; margin-bottom: var(--spacing-lg);">为什么选择 SEU 二手流转？</h2>
+        <div class="grid grid--cols-3">
+            <div class="card" style="padding: var(--spacing-lg);">
+                <div style="font-size: 32px; margin-bottom: var(--spacing-md);">🔐</div>
+                <h3>安全可信</h3>
+                <p style="margin: 0; color: var(--color-text-secondary);">通过校园身份认证，确保交易双方的真实性，让交易更放心。</p>
+            </div>
+            <div class="card" style="padding: var(--spacing-lg);">
+                <div style="font-size: 32px; margin-bottom: var(--spacing-md);">⚡</div>
+                <h3>快速便捷</h3>
+                <p style="margin: 0; color: var(--color-text-secondary);">智能搜索和分类，快速找到想要的商品，校园内配送更便利。</p>
+            </div>
+            <div class="card" style="padding: var(--spacing-lg);">
+                <div style="font-size: 32px; margin-bottom: var(--spacing-md);">💚</div>
+                <h3>资源循环</h3>
+                <p style="margin: 0; color: var(--color-text-secondary);">推动绿色消费，让闲置物品得到充分利用，造福更多校园用户。</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+/**
+ * 首页数据加载和交互
+ */
+document.addEventListener('DOMContentLoaded', async () => {
+    // 加载热门商品
+    try {
+        const featuredResponse = await API.recommend.getPopular({ limit: 4 });
+        const featuredContainer = document.getElementById('featured-items');
+        
+        if (featuredResponse.data && featuredResponse.data.length > 0) {
+            featuredContainer.innerHTML = featuredResponse.data.map(item => `
+                <a href="/items/${item.id}" class="product-card" style="text-decoration: none; color: inherit;">
+                    <img src="${item.image || '/static/images/placeholder.png'}" alt="${item.title}" class="product-card__image">
+                    <div class="product-card__content">
+                        <h3 class="product-card__title">${item.title}</h3>
+                        <p class="product-card__description">${item.description.substring(0, 60)}...</p>
+                        <div class="product-card__price">¥${item.price.toFixed(2)}</div>
+                        <div class="product-card__seller text-sm text-muted">卖家: ${item.seller_name}</div>
+                        ${item.stock > 0 ? '' : '<span class="product-card__badge">缺货</span>'}
+                    </div>
+                </a>
+            `).join('');
+        }
+    } catch (error) {
+        console.error('加载热门商品失败:', error);
+        document.getElementById('featured-items').innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+                <div class="empty-state__icon">⚠️</div>
+                <div class="empty-state__title">加载失败</div>
+                <p class="empty-state__description">无法加载热门商品，请稍后重试</p>
+            </div>
+        `;
+    }
+
+    // 加载最新商品
+    try {
+        const latestResponse = await API.recommend.getLatest({ limit: 4 });
+        const latestContainer = document.getElementById('latest-items');
+        
+        if (latestResponse.data && latestResponse.data.length > 0) {
+            latestContainer.innerHTML = latestResponse.data.map(item => `
+                <a href="/items/${item.id}" class="product-card" style="text-decoration: none; color: inherit;">
+                    <img src="${item.image || '/static/images/placeholder.png'}" alt="${item.title}" class="product-card__image">
+                    <div class="product-card__content">
+                        <h3 class="product-card__title">${item.title}</h3>
+                        <p class="product-card__description">${item.description.substring(0, 60)}...</p>
+                        <div class="product-card__price">¥${item.price.toFixed(2)}</div>
+                        <div class="product-card__seller text-sm text-muted">卖家: ${item.seller_name}</div>
+                        ${item.stock > 0 ? '' : '<span class="product-card__badge">缺货</span>'}
+                    </div>
+                </a>
+            `).join('');
+        }
+    } catch (error) {
+        console.error('加载最新商品失败:', error);
+        document.getElementById('latest-items').innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+                <div class="empty-state__icon">⚠️</div>
+                <div class="empty-state__title">加载失败</div>
+                <p class="empty-state__description">无法加载最新商品，请稍后重试</p>
+            </div>
+        `;
+    }
+});
+</script>
 {% endblock %}

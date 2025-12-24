@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}配送地点 - 东南大学校园二手交易平台{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 40px 0;">
+    <div style="max-width: 900px; margin: 0 auto;">
+        <div style="margin-bottom: 40px; border-bottom: 2px solid var(--color-primary); padding-bottom: 20px;">
+            <h1 style="font-size: 32px; color: var(--color-primary); margin: 0;">校园配送地点</h1>
+        </div>
+
+        <p style="font-size: 16px; color: var(--color-text-secondary); margin-bottom: 30px;">
+            下面是平台支持的所有校园配送地点。您可以在下单时选择最方便的地点接收商品。
+        </p>
+
+        <!-- 九龙湖校区 -->
+        <h2 style="color: var(--color-primary); font-size: 24px; margin-bottom: 20px;">🏫 九龙湖校区</h2>
+        <div style="display: grid; gap: 20px; margin-bottom: 40px;">
+            <div class="card">
+                <h3 style="color: #0066cc; margin-top: 0;">📍 学生活动中心</h3>
+                <p style="color: var(--color-text-secondary);">最大的自取点，24小时可取</p>
+                <p style="color: var(--color-text-primary); font-size: 15px;">
+                    <strong>地址：</strong>南校园学生活动中心一楼<br>
+                    <strong>营业时间：</strong>8:00-22:00（节假日另行通知）<br>
+                    <strong>联系电话：</strong>025-xxxx-xxxx
+                </p>
+            </div>
+
+            <div class="card">
+                <h3 style="color: #0066cc; margin-top: 0;">📍 宿舍楼下配送点</h3>
+                <p style="color: var(--color-text-secondary);">A区、B区、C区、D区各有配送点</p>
+                <p style="color: var(--color-text-primary); font-size: 15px;">
+                    <strong>地址：</strong>各宿舍楼下<br>
+                    <strong>收货时间：</strong>16:00-20:00（周一至周五）、10:00-20:00（周末）<br>
+                    <strong>说明：</strong>直接送到宿舍楼下，方便快捷
+                </p>
+            </div>
+
+            <div class="card">
+                <h3 style="color: #0066cc; margin-top: 0;">📍 教学楼自取点</h3>
+                <p style="color: var(--color-text-secondary);">多个教学楼均有配送点</p>
+                <p style="color: var(--color-text-primary); font-size: 15px;">
+                    <strong>地址：</strong>主楼、二楼、三楼、大成楼等一楼<br>
+                    <strong>收货时间：</strong>8:00-17:00（周一至周五）<br>
+                    <strong>说明：</strong>上课间隙可自取，部分教学楼有专人值守
+                </p>
+            </div>
+
+            <div class="card">
+                <h3 style="color: #0066cc; margin-top: 0;">📍 图书馆自取点</h3>
+                <p style="color: var(--color-text-secondary);">北校园最便利的地点</p>
+                <p style="color: var(--color-text-primary); font-size: 15px;">
+                    <strong>地址：</strong>丁家桥校区图书馆一楼<br>
+                    <strong>营业时间：</strong>8:00-22:00（与图书馆同）<br>
+                    <strong>说明：</strong>靠近教室和宿舍，最方便的取件点
+                </p>
+            </div>
+        </div>
+
+        <!-- 丁家桥校区 -->
+        <h2 style="color: var(--color-primary); font-size: 24px; margin-bottom: 20px;">🏫 丁家桥校区</h2>
+        <div style="display: grid; gap: 20px; margin-bottom: 40px;">
+            <div class="card">
+                <h3 style="color: #0066cc; margin-top: 0;">📍 学生创新中心</h3>
+                <p style="color: var(--color-text-secondary);">校区主要配送点</p>
+                <p style="color: var(--color-text-primary); font-size: 15px;">
+                    <strong>地址：</strong>学生创新中心A楼一楼<br>
+                    <strong>营业时间：</strong>9:00-21:00<br>
+                    <strong>联系电话：</strong>025-xxxx-xxxx
+                </p>
+            </div>
+
+            <div class="card">
+                <h3 style="color: #0066cc; margin-top: 0;">📍 宿舍楼下配送点</h3>
+                <p style="color: var(--color-text-secondary);">E区、F区宿舍</p>
+                <p style="color: var(--color-text-primary); font-size: 15px;">
+                    <strong>地址：</strong>各宿舍楼下<br>
+                    <strong>收货时间：</strong>16:00-20:00（周一至周五）、10:00-20:00（周末）
+                </p>
+            </div>
+
+            <div class="card">
+                <h3 style="color: #0066cc; margin-top: 0;">📍 校园卡充值点</h3>
+                <p style="color: var(--color-text-secondary);">可同时进行支付</p>
+                <p style="color: var(--color-text-primary); font-size: 15px;">
+                    <strong>地址：</strong>学生卡务大厅<br>
+                    <strong>营业时间：</strong>8:30-16:30（周一至周五）
+                </p>
+            </div>
+        </div>
+
+        <!-- 四牌楼校区 -->
+        <h2 style="color: var(--color-primary); font-size: 24px; margin-bottom: 20px;">🏫 四牌楼校区</h2>
+        <div style="display: grid; gap: 20px; margin-bottom: 40px;">
+            <div class="card">
+                <h3 style="color: #0066cc; margin-top: 0;">📍 教职员楼下配送点</h3>
+                <p style="color: var(--color-text-secondary);">四牌楼主要自取点</p>
+                <p style="color: var(--color-text-primary); font-size: 15px;">
+                    <strong>地址：</strong>教职员楼一楼<br>
+                    <strong>营业时间：</strong>9:00-17:00（周一至周五）
+                </p>
+            </div>
+
+            <div class="card">
+                <h3 style="color: #0066cc; margin-top: 0;">📍 校园卡充值点</h3>
+                <p style="color: var(--color-text-secondary);">可在此支付和取件</p>
+                <p style="color: var(--color-text-primary); font-size: 15px;">
+                    <strong>地址：</strong>教务楼<br>
+                    <strong>营业时间：</strong>8:30-16:30（周一至周五）
+                </p>
+            </div>
+        </div>
+
+        <!-- 提示信息 -->
+        <div class="card" style="background-color: #e8f5e9; border-left: 4px solid #52c41a;">
+            <h3 style="color: #2e7d32; margin-top: 0;">💡 提示</h3>
+            <ul style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8; margin: 0;">
+                <li>不同地点营业时间可能有所调整，建议提前确认</li>
+                <li>节假日部分地点可能关闭，请查看最新通知</li>
+                <li>校园配送费用全免，欢迎选择最近的地点</li>
+                <li>下单时会显示各配送地点的预计送达时间</li>
+                <li>如需上门送达，可与卖家单独沟通协商</li>
+            </ul>
+        </div>
+
+        <!-- 地图 -->
+        <div class="card" style="background-color: #f5f5f5; margin-top: 30px; text-align: center;">
+            <h2 style="color: var(--color-primary); margin-top: 0;">🗺️ 校园地图</h2>
+            <p style="color: var(--color-text-secondary); font-size: 16px;">
+                完整的校园地图请访问东南大学官网或使用校园地图应用<br>
+                您也可以在我们的应用中查看配送地点的实时位置
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

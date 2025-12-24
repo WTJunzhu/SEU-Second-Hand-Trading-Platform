@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}使用指南 - 东南大学校园二手交易平台{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 40px 0;">
+    <div style="max-width: 900px; margin: 0 auto;">
+        <!-- 页面标题 -->
+        <div style="margin-bottom: 40px; border-bottom: 2px solid var(--color-primary); padding-bottom: 20px;">
+            <h1 style="font-size: 32px; color: var(--color-primary); margin: 0;">使用指南</h1>
+        </div>
+
+        <!-- 新用户指南 -->
+        <div class="card" style="margin-bottom: 30px;">
+            <h2 style="color: var(--color-primary); margin-top: 0;">🚀 快速开始</h2>
+            <ol style="font-size: 16px; line-height: 2; color: var(--color-text-primary);">
+                <li><strong>注册账号</strong> - 使用@seu.edu.cn邮箱注册，校园身份真实认证</li>
+                <li><strong>完善资料</strong> - 添加头像、实名认证，提高交易信任度</li>
+                <li><strong>浏览商品</strong> - 通过搜索、分类、筛选找到心仪的商品</li>
+                <li><strong>下单购买</strong> - 选择商品加入购物车，选择配送方式结账</li>
+                <li><strong>确认收货</strong> - 收到商品后确认收货，完成交易</li>
+                <li><strong>评价反馈</strong> - 留下评价，帮助其他用户了解卖家信誉</li>
+            </ol>
+        </div>
+
+        <!-- 买家指南 -->
+        <div style="margin-bottom: 30px;">
+            <h2 style="color: var(--color-primary);">🛍️ 买家指南</h2>
+            
+            <div class="card" style="margin-bottom: 20px;">
+                <h3 style="color: #0066cc; margin-top: 0;">如何搜索商品？</h3>
+                <ul style="font-size: 16px; line-height: 1.8;">
+                    <li>在首页搜索框输入关键词（如"MacBook"、"教材"等）</li>
+                    <li>使用分类筛选快速定位商品类型</li>
+                    <li>按价格排序找到心仪价位的商品</li>
+                    <li>查看商品详情、图片、卖家评价后下单</li>
+                </ul>
+            </div>
+
+            <div class="card" style="margin-bottom: 20px;">
+                <h3 style="color: #0066cc; margin-top: 0;">购物车和结账流程</h3>
+                <ul style="font-size: 16px; line-height: 1.8;">
+                    <li>点击"加入购物车"暂存商品，可继续浏览其他商品</li>
+                    <li>进入购物车可调整数量、删除商品</li>
+                    <li>结账时选择收货地址和支付方式</li>
+                    <li>完成支付后，卖家将尽快发货</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3 style="color: #0066cc; margin-top: 0;">安全购物建议</h3>
+                <ul style="font-size: 16px; line-height: 1.8;">
+                    <li>优先选择高评分卖家，查看其他买家的评价</li>
+                    <li>仔细查看商品描述和图片，有疑问可私聊卖家</li>
+                    <li>只通过平台进行支付，勿支付给私人账户</li>
+                    <li>收货时检查商品是否与描述一致</li>
+                    <li>如有问题可申请退货或联系平台客服</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 卖家指南 -->
+        <div style="margin-bottom: 30px;">
+            <h2 style="color: var(--color-primary);">📦 卖家指南</h2>
+            
+            <div class="card" style="margin-bottom: 20px;">
+                <h3 style="color: #52c41a; margin-top: 0;">发布商品的步骤</h3>
+                <ol style="font-size: 16px; line-height: 1.8;">
+                    <li>登录账号，点击"发布商品"</li>
+                    <li>填写商品信息（标题、描述、价格、库存等）</li>
+                    <li>上传商品清晰的照片（建议3张以上）</li>
+                    <li>选择商品分类和标签</li>
+                    <li>确认发布，等待审核（通常1小时内）</li>
+                </ol>
+            </div>
+
+            <div class="card" style="margin-bottom: 20px;">
+                <h3 style="color: #52c41a; margin-top: 0;">优化商品信息</h3>
+                <ul style="font-size: 16px; line-height: 1.8;">
+                    <li><strong>标题要清晰</strong> - 包含品牌、型号、年份等关键信息</li>
+                    <li><strong>描述要详细</strong> - 说明商品新旧程度、功能状况、是否有缺陷</li>
+                    <li><strong>照片要清楚</strong> - 从多个角度展示商品，包括细节特写</li>
+                    <li><strong>价格要合理</strong> - 参考同类商品价格，设置有竞争力的价格</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3 style="color: #52c41a; margin-top: 0;">发货和售后</h3>
+                <ul style="font-size: 16px; line-height: 1.8;">
+                    <li>收到订单后及时确认和发货</li>
+                    <li>使用校园配送或自取方式快速送达</li>
+                    <li>和买家保持沟通，提供配送进度</li>
+                    <li>买家收货确认后交易完成</li>
+                    <li>认真对待用户评价，不断提升服务质量</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 常见问题快速链接 -->
+        <div class="card" style="background-color: #f0f5ff; text-align: center;">
+            <h2 style="color: var(--color-primary); margin-top: 0;">❓ 遇到问题？</h2>
+            <p style="font-size: 16px; color: var(--color-text-primary); margin-bottom: 20px;">
+                查看我们的详细常见问题解答，或联系客服获得帮助
+            </p>
+            <a href="/faq" class="btn btn--primary" style="display: inline-block;">查看常见问题</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

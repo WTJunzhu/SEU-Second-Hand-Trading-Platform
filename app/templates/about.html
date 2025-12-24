@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}平台介绍 - 东南大学校园二手交易平台{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 40px 0;">
+    <div style="max-width: 900px; margin: 0 auto;">
+        <!-- 页面标题 -->
+        <div style="margin-bottom: 40px; border-bottom: 2px solid var(--color-primary); padding-bottom: 20px;">
+            <h1 style="font-size: 32px; color: var(--color-primary); margin: 0;">平台介绍</h1>
+        </div>
+
+        <!-- 核心介绍 -->
+        <div class="card" style="margin-bottom: 30px;">
+            <h2 style="color: var(--color-primary); margin-top: 0;">关于 SEU 校园二手交易平台</h2>
+            <p style="font-size: 16px; line-height: 1.8; color: var(--color-text-primary);">
+                <strong>东南大学校园二手交易平台</strong>是一个为校园师生提供便捷、安全、可靠的二手商品交易服务的平台。我们致力于促进校园资源循环利用，为大家提供一个信任、透明的交易环境。
+            </p>
+        </div>
+
+        <!-- 平台特色 -->
+        <div style="margin-bottom: 30px;">
+            <h2 style="color: var(--color-primary);">✨ 平台特色</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div class="card">
+                    <h3 style="color: #0066cc; margin-top: 0;">🔐 安全可信</h3>
+                    <p>基于@seu.edu.cn校园邮箱认证，确保交易双方身份真实，建立安全的交易环境。</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: #0066cc; margin-top: 0;">🚚 校园配送</h3>
+                    <p>支持校园内多个配送点，包括宿舍、教学楼等，方便师生取送，运费更低。</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: #0066cc; margin-top: 0;">💚 绿色环保</h3>
+                    <p>通过二手交易，减少资源浪费，践行可持续发展理念，保护校园环境。</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: #0066cc; margin-top: 0;">💳 支付便捷</h3>
+                    <p>支持多种支付方式（微信、支付宝、银行卡），交易流程简单快捷。</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: #0066cc; margin-top: 0;">⭐ 信用评价</h3>
+                    <p>完整的用户信用体系，交易评价透明，帮助您选择可信赖的交易方。</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: #0066cc; margin-top: 0;">🆘 售后支持</h3>
+                    <p>专业的客服团队24小时在线，为您解答问题，保护您的权益。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 数据统计 -->
+        <div class="card" style="background: linear-gradient(135deg, #e6f0ff 0%, #f0f5ff 100%); margin-bottom: 30px;">
+            <h2 style="color: var(--color-primary); margin-top: 0; text-align: center;">📊 平台数据</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center;">
+                <div>
+                    <p style="font-size: 36px; color: var(--color-primary); margin: 0; font-weight: bold;">5000+</p>
+                    <p style="color: var(--color-text-secondary); margin: 10px 0 0 0;">月活跃用户</p>
+                </div>
+                <div>
+                    <p style="font-size: 36px; color: var(--color-primary); margin: 0; font-weight: bold;">2000+</p>
+                    <p style="color: var(--color-text-secondary); margin: 10px 0 0 0;">在线商品</p>
+                </div>
+                <div>
+                    <p style="font-size: 36px; color: var(--color-primary); margin: 0; font-weight: bold;">98%</p>
+                    <p style="color: var(--color-text-secondary); margin: 10px 0 0 0;">用户满意度</p>
+                </div>
+                <div>
+                    <p style="font-size: 36px; color: var(--color-primary); margin: 0; font-weight: bold;">10000+</p>
+                    <p style="color: var(--color-text-secondary); margin: 10px 0 0 0;">成功交易次数</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 使用场景 -->
+        <div style="margin-bottom: 30px;">
+            <h2 style="color: var(--color-primary);">📖 使用场景</h2>
+            <ul style="font-size: 16px; line-height: 2; color: var(--color-text-primary);">
+                <li><strong>📚 教材交易</strong> - 毕业转让教科书，新生购买二手教材，节省开支</li>
+                <li><strong>💻 电子产品</strong> - 买卖闲置笔记本、手机、平板等电子设备</li>
+                <li><strong>👕 衣物鞋包</strong> - 处理季节衣物，尝试不同风格，旧物焕新</li>
+                <li><strong>🛏️ 生活用品</strong> - 转让宿舍用品、家具、厨房用具等日常用品</li>
+                <li><strong>📖 书籍资料</strong> - 分享经典书籍，出售考研资料和复习笔记</li>
+            </ul>
+        </div>
+
+        <!-- 我们的承诺 -->
+        <div class="card" style="background-color: #f0f5ff; border-left: 4px solid var(--color-primary);">
+            <h2 style="color: var(--color-primary); margin-top: 0;">📢 我们的承诺</h2>
+            <ul style="font-size: 16px; line-height: 2; color: var(--color-text-primary); margin: 0;">
+                <li>✅ 坚持校园身份认证，拒绝虚假账号</li>
+                <li>✅ 公平透明的交易规则，保护双方权益</li>
+                <li>✅ 及时专业的客服支持，快速解决问题</li>
+                <li>✅ 持续优化平台体验，倾听用户建议</li>
+                <li>✅ 遵守法律法规，打造和谐校园环境</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

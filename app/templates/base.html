@@ -2,21 +2,93 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>东南大学校园二手交易平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="东南大学校园二手交易平台 - 安全、便捷的校园内二手商品交易服务">
+    <meta name="theme-color" content="#0066cc">
+    <title>{% block title %}东南大学校园二手交易平台{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <nav>
-        <!-- 导航栏 -->
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container" style="padding-left: 0; padding-right: 0; max-width: 100%;">
+            <div class="navbar__inner">
+                <!-- Logo -->
+                <a href="/" class="navbar__logo">
+                    <span>📚</span>
+                    <span>SEU 二手流转</span>
+                </a>
+
+                <!-- 搜索框 -->
+                <form class="navbar__search">
+                    <div class="flex gap-sm">
+                        <input 
+                            type="text" 
+                            class="form-input" 
+                            placeholder="搜索商品、卖家或分类..." 
+                            required
+                        >
+                        <button type="submit" class="btn btn--primary btn--sm">搜索</button>
+                    </div>
+                </form>
+
+                <!-- 右侧菜单 -->
+                <div class="navbar__user-menu">
+                    <!-- 由 JavaScript 动态填充 -->
+                </div>
+            </div>
+        </div>
     </nav>
-    
-    <main>
+
+    <!-- 页面内容 -->
+    <div class="page-content">
         {% block content %}{% endblock %}
-    </main>
-    
-    <footer>
-        <!-- 页脚 -->
+    </div>
+
+    <!-- 底部 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__section">
+                    <h4>关于平台</h4>
+                    <a href="/about" class="footer__link">平台介绍</a>
+                    <a href="/guide" class="footer__link">使用指南</a>
+                    <a href="/contact" class="footer__link">联系我们</a>
+                </div>
+                <div class="footer__section">
+                    <h4>交易帮助</h4>
+                    <a href="/publish" class="footer__link">如何发布商品</a>
+                    <a href="/buying-guide" class="footer__link">购买指南</a>
+                    <a href="/delivery" class="footer__link">配送说明</a>
+                </div>
+                <div class="footer__section">
+                    <h4>校园服务</h4>
+                    <a href="/delivery-points" class="footer__link">配送地点</a>
+                    <a href="/faq" class="footer__link">常见问题</a>
+                </div>
+                <div class="footer__section">
+                    <h4>用户协议</h4>
+                    <a href="/terms" class="footer__link">使用条款</a>
+                </div>
+            </div>
+            <div class="footer__divider">
+                <p>&copy; 2024 东南大学校园二手交易平台</p>
+                <p>问题反馈：support@seu-secondhand.edu.cn | 电话：xxxx-xxxx</p>
+            </div>
+        </div>
     </footer>
+
+    <!-- Mock API（开发测试用，生产环境请删除） -->
+    <script>
+        // 本地开发时可以在控制台运行：window.USE_MOCK_API = true; location.reload();
+        // 来启用 Mock API，无需真实后端即可测试前端功能
+    </script>
+    <script src="{{ url_for('static', filename='js/mock-api.js') }}"></script>
+
+    <!-- 脚本加载 -->
+    <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

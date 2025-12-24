@@ -1,0 +1,361 @@
+{% extends "base.html" %}
+
+{% block title %}结账 - 东南大学校园二手交易平台{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1>订单结账</h1>
+        <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 0;">完成您的采购，享受校园配送服务</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="grid grid--cols-3">
+        <!-- 主内容 -->
+        <div style="grid-column: 1 / 3;">
+            <form id="checkout-form">
+                <!-- 步骤 1: 收货地址 -->
+                <div class="card" style="margin-bottom: var(--spacing-lg);">
+                    <div class="card__header" style="background: var(--color-primary-light);">
+                        <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                            <span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--color-primary); color: white; border-radius: 50%; font-weight: bold;">1</span>
+                            <h3 style="margin: 0;">收货地址</h3>
+                        </div>
+                    </div>
+                    <div class="card__body">
+                        <!-- 地址列表 -->
+                        <div id="addresses-list" style="margin-bottom: var(--spacing-lg);">
+                            <div class="skeleton" style="height: 80px; margin-bottom: var(--spacing-md);"></div>
+                            <div class="skeleton" style="height: 80px;"></div>
+                        </div>
+
+                        <!-- 新增地址表单 -->
+                        <div id="new-address-form" style="display: none; padding-top: var(--spacing-lg); border-top: 1px solid var(--color-border);">
+                            <h4 style="margin-bottom: var(--spacing-md);">添加新地址</h4>
+                            <div class="grid grid--cols-2">
+                                <div class="form-group">
+                                    <label class="form-label">校区/宿舍楼</label>
+                                    <input type="text" name="building" class="form-input" placeholder="如：九龙湖宿舍 A 栋" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">房间号</label>
+                                    <input type="text" name="room" class="form-input" placeholder="如：405" required>
+                                </div>
+                                <div class="form-group" style="grid-column: 1 / -1;">
+                                    <label class="form-label">详细说明</label>
+                                    <input type="text" name="details" class="form-input" placeholder="请输入便于找到的标志（可选）">
+                                </div>
+                            </div>
+                            <button type="button" id="cancel-new-address" class="btn btn--secondary">取消</button>
+                            <button type="button" id="confirm-new-address" class="btn btn--primary">确定</button>
+                        </div>
+
+                        <button type="button" id="add-new-address" class="btn btn--text">+ 添加新地址</button>
+                    </div>
+                </div>
+
+                <!-- 步骤 2: 支付方式 -->
+                <div class="card" style="margin-bottom: var(--spacing-lg);">
+                    <div class="card__header" style="background: var(--color-primary-light);">
+                        <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                            <span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--color-primary); color: white; border-radius: 50%; font-weight: bold;">2</span>
+                            <h3 style="margin: 0;">支付方式</h3>
+                        </div>
+                    </div>
+                    <div class="card__body">
+                        <div style="display: grid; gap: var(--spacing-md);">
+                            <label style="display: flex; align-items: center; gap: var(--spacing-md); padding: var(--spacing-md); border: 2px solid var(--color-border); border-radius: var(--radius-lg); cursor: pointer;">
+                                <input type="radio" name="payment_method" value="wechat" checked>
+                                <span>💚 微信支付</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: var(--spacing-md); padding: var(--spacing-md); border: 2px solid var(--color-border); border-radius: var(--radius-lg); cursor: pointer;">
+                                <input type="radio" name="payment_method" value="alipay">
+                                <span>🔵 支付宝</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: var(--spacing-md); padding: var(--spacing-md); border: 2px solid var(--color-border); border-radius: var(--radius-lg); cursor: pointer;">
+                                <input type="radio" name="payment_method" value="card">
+                                <span>💳 储值卡</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 步骤 3: 订单确认 -->
+                <div class="card">
+                    <div class="card__header" style="background: var(--color-primary-light);">
+                        <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                            <span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--color-primary); color: white; border-radius: 50%; font-weight: bold;">3</span>
+                            <h3 style="margin: 0;">订单确认</h3>
+                        </div>
+                    </div>
+                    <div class="card__body">
+                        <!-- 订单商品列表 -->
+                        <div style="margin-bottom: var(--spacing-lg);">
+                            <h4 style="margin-bottom: var(--spacing-md);">订单商品</h4>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>商品</th>
+                                        <th>单价</th>
+                                        <th>数量</th>
+                                        <th>小计</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="order-items">
+                                    <!-- 动态填充 -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- 备注 -->
+                        <div class="form-group">
+                            <label class="form-label">订单备注</label>
+                            <textarea 
+                                name="notes" 
+                                class="form-textarea" 
+                                placeholder="如有特殊要求，请在这里说明"
+                                style="min-height: 80px;"
+                            ></textarea>
+                        </div>
+
+                        <!-- 勾选协议 -->
+                        <label style="display: flex; align-items: flex-start; gap: var(--spacing-sm); margin-bottom: var(--spacing-lg);">
+                            <input type="checkbox" name="agree_terms" required>
+                            <span>我已阅读并同意<a href="#">《交易规则》</a>和<a href="#">《隐私保护》</a>，确认上述地址信息无误</span>
+                        </label>
+
+                        <!-- 提交按钮 -->
+                        <button type="submit" class="btn btn--primary btn--lg btn--block">
+                            提交订单并支付
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- 右侧: 订单摘要 -->
+        <div style="grid-column: 3 / 4;">
+            <div class="card" style="position: sticky; top: 80px;">
+                <div class="card__header">
+                    <h3 style="margin: 0;">订单摘要</h3>
+                </div>
+                <div class="card__body">
+                    <!-- 商品数量 -->
+                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md);">
+                        <span>商品数量:</span>
+                        <span class="font-bold" id="summary-count">0</span>
+                    </div>
+
+                    <!-- 小计 -->
+                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md);">
+                        <span>商品小计:</span>
+                        <span class="font-bold">¥<span id="summary-subtotal">0.00</span></span>
+                    </div>
+
+                    <!-- 运费 -->
+                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); color: var(--color-success);">
+                        <span>运费:</span>
+                        <span class="font-bold">免费</span>
+                    </div>
+
+                    <!-- 分割线 -->
+                    <div style="border-top: 2px solid var(--color-border); margin: var(--spacing-md) 0;"></div>
+
+                    <!-- 总计 -->
+                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-lg);">
+                        <span class="font-semibold">应付总额:</span>
+                        <span style="font-size: var(--font-size-2xl); color: var(--color-primary); font-weight: bold;">
+                            ¥<span id="summary-total">0.00</span>
+                        </span>
+                    </div>
+
+                    <!-- 信息提示 -->
+                    <div class="alert alert--info">
+                        <span>ℹ️</span>
+                        <div>
+                            <strong>配送信息</strong>
+                            <p style="margin: var(--spacing-xs) 0 0 0; font-size: var(--font-size-sm);">
+                                商品将在支付成功后 1-3 个工作日送至您指定的校园地点。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+/**
+ * 结账页面逻辑
+ */
+class CheckoutPage {
+    constructor() {
+        this.cart = CartManager.getCart();
+        this.addresses = [];
+        this.selectedAddressId = null;
+        this.init();
+    }
+
+    async init() {
+        // 检查登录状态
+        if (!AuthManager.isLoggedIn()) {
+            window.location.href = `/login?redirect=/checkout`;
+            return;
+        }
+
+        // 检查购物车是否为空
+        if (this.cart.length === 0) {
+            NotificationManager.warning('购物车为空，请先添加商品');
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1500);
+            return;
+        }
+
+        await this.loadAddresses();
+        this.renderOrderItems();
+        this.updateOrderSummary();
+        this.setupEventListeners();
+    }
+
+    async loadAddresses() {
+        try {
+            const response = await API.address.getCampusAddresses();
+            this.addresses = response.data || [];
+            this.renderAddresses();
+        } catch (error) {
+            console.error('加载地址失败:', error);
+            NotificationManager.error('加载配送地址失败');
+        }
+    }
+
+    renderAddresses() {
+        const container = document.getElementById('addresses-list');
+        
+        if (this.addresses.length === 0) {
+            container.innerHTML = `
+                <div class="alert alert--warning">
+                    请选择校园配送地点或添加新地址
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = this.addresses.map((addr, index) => `
+            <label style="display: block; padding: var(--spacing-md); border: 2px solid ${index === 0 ? 'var(--color-primary)' : 'var(--color-border)'}; border-radius: var(--radius-lg); margin-bottom: var(--spacing-sm); cursor: pointer;">
+                <input type="radio" name="address" value="${addr.id}" ${index === 0 ? 'checked' : ''} required>
+                <strong>${addr.name}</strong>
+                <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-top: var(--spacing-xs);">
+                    ${addr.building} ${addr.details ? '- ' + addr.details : ''}
+                </div>
+            </label>
+        `).join('');
+
+        this.selectedAddressId = this.addresses[0]?.id;
+    }
+
+    renderOrderItems() {
+        const tbody = document.getElementById('order-items');
+        
+        tbody.innerHTML = this.cart.map(item => `
+            <tr>
+                <td>${item.title}</td>
+                <td>¥${item.price.toFixed(2)}</td>
+                <td>${item.quantity}</td>
+                <td>¥${(item.price * item.quantity).toFixed(2)}</td>
+            </tr>
+        `).join('');
+    }
+
+    updateOrderSummary() {
+        const stats = CartManager.getStats();
+        document.getElementById('summary-count').textContent = stats.count;
+        document.getElementById('summary-subtotal').textContent = stats.total;
+        document.getElementById('summary-total').textContent = stats.total;
+    }
+
+    setupEventListeners() {
+        // 地址选择
+        document.querySelectorAll('input[name="address"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                this.selectedAddressId = e.target.value;
+            });
+        });
+
+        // 添加新地址
+        document.getElementById('add-new-address').addEventListener('click', () => {
+            document.getElementById('new-address-form').style.display = 'block';
+        });
+
+        document.getElementById('cancel-new-address').addEventListener('click', () => {
+            document.getElementById('new-address-form').style.display = 'none';
+        });
+
+        document.getElementById('confirm-new-address').addEventListener('click', () => {
+            // 这里可以添加逻辑来保存新地址
+            NotificationManager.success('地址已添加');
+            document.getElementById('new-address-form').style.display = 'none';
+        });
+
+        // 表单提交
+        document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!this.selectedAddressId) {
+                NotificationManager.error('请选择配送地址');
+                return;
+            }
+
+            const formData = new FormData(e.target);
+            
+            LoadingManager.show('正在提交订单...');
+
+            try {
+                const orderData = {
+                    items: this.cart.map(item => ({
+                        itemId: item.itemId,
+                        quantity: item.quantity,
+                    })),
+                    deliveryAddress: this.selectedAddressId,
+                    paymentMethod: formData.get('payment_method'),
+                    notes: formData.get('notes'),
+                };
+
+                const response = await API.order.create(orderData);
+                LoadingManager.hide();
+
+                if (response.data?.orderId) {
+                    NotificationManager.success('订单提交成功！');
+                    
+                    // 清空购物车
+                    CartManager.clear();
+
+                    // 跳转到支付页面或订单详情页
+                    setTimeout(() => {
+                        window.location.href = `/orders/${response.data.orderId}`;
+                    }, 1000);
+                }
+            } catch (error) {
+                LoadingManager.hide();
+                
+                if (error.data?.message) {
+                    NotificationManager.error(error.data.message);
+                } else {
+                    NotificationManager.error('订单提交失败，请稍后重试');
+                }
+            }
+        });
+    }
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', () => {
+    new CheckoutPage();
+});
+</script>
+{% endblock %}

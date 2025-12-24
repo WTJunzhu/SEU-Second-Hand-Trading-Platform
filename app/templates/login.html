@@ -1,18 +1,166 @@
 {% extends "base.html" %}
 
+{% block title %}登录 - 东南大学校园二手交易平台{% endblock %}
+
 {% block content %}
-<h1>用户登录</h1>
-<!-- 登录表单 -->
-<form method="POST">
-    <div>
-        <label for="email">邮箱:</label>
-        <input type="email" id="email" name="email" required>
+<div class="page-header">
+    <div class="container">
+        <h1>登录账号</h1>
+        <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 0;">登录后即可浏览和发布商品</p>
     </div>
-    <div>
-        <label for="password">密码:</label>
-        <input type="password" id="password" name="password" required>
+</div>
+
+<div class="container">
+    <div class="card" style="max-width: 450px; margin: var(--spacing-2xl) auto;">
+        <div class="card__body">
+            <form id="login-form">
+                <!-- 用户名或邮箱 -->
+                <div class="form-group">
+                    <label class="form-label" for="username">用户名或邮箱</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="form-input" 
+                        placeholder="输入您的用户名或邮箱"
+                        required
+                    >
+                    <div class="form-error"></div>
+                </div>
+
+                <!-- 密码 -->
+                <div class="form-group">
+                    <label class="form-label" for="password">密码</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-input" 
+                        placeholder="输入您的密码"
+                        required
+                    >
+                    <div class="form-error"></div>
+                </div>
+
+                <!-- 记住我 & 忘记密码 -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-lg);">
+                    <label style="display: flex; align-items: center; gap: var(--spacing-sm); cursor: pointer;">
+                        <input type="checkbox" id="remember" name="remember">
+                        <span>记住我</span>
+                    </label>
+                    <a href="#" class="btn btn--text" style="padding: 0;">忘记密码？</a>
+                </div>
+
+                <!-- 提交按钮 -->
+                <button type="submit" class="btn btn--primary btn--lg btn--block">
+                    登录
+                </button>
+
+                <!-- 注册链接 -->
+                <div style="text-align: center; margin-top: var(--spacing-lg);">
+                    <p style="margin: 0;">还没有账号？<a href="/register">立即注册</a></p>
+                </div>
+            </form>
+
+            <!-- 帮助信息 -->
+            <div class="alert alert--info" style="margin-top: var(--spacing-lg); margin-bottom: 0;">
+                <span>💡</span>
+                <div>
+                    <strong>首次使用？</strong>
+                    <p style="margin: var(--spacing-sm) 0 0 0; font-size: var(--font-size-sm);">
+                        使用您的 SEU 邮箱账号注册，即可开始浏览和交易校园二手商品。
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-    <button type="submit">登录</button>
-</form>
-<a href="{{ url_for('register') }}">还没有账户？立即注册</a>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+/**
+ * 登录页面逻辑
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('login-form');
+    const usernameField = document.getElementById('username');
+    const passwordField = document.getElementById('password');
+
+    /**
+     * 表单提交
+     */
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // 基础验证
+        if (!usernameField.value.trim()) {
+            const errorEl = usernameField.parentElement.querySelector('.form-error');
+            errorEl.textContent = '用户名或邮箱不能为空';
+            errorEl.classList.add('is-visible');
+            return;
+        }
+
+        if (!passwordField.value) {
+            const errorEl = passwordField.parentElement.querySelector('.form-error');
+            errorEl.textContent = '密码不能为空';
+            errorEl.classList.add('is-visible');
+            return;
+        }
+
+        // 清除错误提示
+        document.querySelectorAll('.form-error').forEach(el => el.classList.remove('is-visible'));
+
+        // 提交登录
+        LoadingManager.show('正在登录...');
+        
+        try {
+            const response = await API.user.login({
+                username: usernameField.value,
+                password: passwordField.value,
+            });
+
+            LoadingManager.hide();
+
+            // 保存用户信息
+            if (response.data?.user) {
+                AuthManager.setUser(response.data.user);
+                if (response.data.token) {
+                    localStorage.setItem('token', response.data.token);
+                }
+            }
+
+            NotificationManager.success('登录成功');
+            
+            // 重定向到首页或来源页面
+            const redirect = new URLSearchParams(window.location.search).get('redirect');
+            setTimeout(() => {
+                window.location.href = redirect || '/';
+            }, 1000);
+        } catch (error) {
+            LoadingManager.hide();
+            
+            if (error.statusCode === 401) {
+                NotificationManager.error('用户名或密码错误');
+            } else if (error.data?.message) {
+                NotificationManager.error(error.data.message);
+            } else {
+                NotificationManager.error('登录失败，请稍后重试');
+            }
+        }
+    });
+
+    /**
+     * 实时清除错误提示
+     */
+    usernameField.addEventListener('input', () => {
+        usernameField.parentElement.querySelector('.form-error').classList.remove('is-visible');
+    });
+
+    passwordField.addEventListener('input', () => {
+        passwordField.parentElement.querySelector('.form-error').classList.remove('is-visible');
+    });
+});
+</script>
 {% endblock %}

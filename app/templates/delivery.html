@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}配送说明 - 东南大学校园二手交易平台{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 40px 0;">
+    <div style="max-width: 900px; margin: 0 auto;">
+        <div style="margin-bottom: 40px; border-bottom: 2px solid var(--color-primary); padding-bottom: 20px;">
+            <h1 style="font-size: 32px; color: var(--color-primary); margin: 0;">配送说明</h1>
+        </div>
+
+        <h2 style="color: var(--color-primary);">🚚 配送方式</h2>
+        
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #52c41a; margin-top: 0;">📍 校园配送（推荐）</h3>
+            <div style="font-size: 16px; line-height: 1.8; color: var(--color-text-primary);">
+                <p><strong>费用：</strong>免费</p>
+                <p><strong>速度：</strong>通常1-3个工作日送达</p>
+                <p><strong>配送地点：</strong></p>
+                <ul style="margin: 10px 0;">
+                    <li>各校区宿舍楼下</li>
+                    <li>教学楼一层信息点</li>
+                    <li>图书馆一楼自取处</li>
+                    <li>学生活动中心</li>
+                </ul>
+                <p style="color: var(--color-text-secondary);">最安全、最经济的选择，所有交易双方都可在校园内完成配送。</p>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #1976d2; margin-top: 0;">🏃 卖家自送</h3>
+            <div style="font-size: 16px; line-height: 1.8; color: var(--color-text-primary);">
+                <p><strong>费用：</strong>由双方协商</p>
+                <p><strong>速度：</strong>可自定义，通常当天或次日</p>
+                <p><strong>说明：</strong>卖家主动送货到买家指定地点，方便快捷，但需双方好好沟通时间和地点。</p>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #7b1fa2; margin-top: 0;">🤝 校园内自取</h3>
+            <div style="font-size: 16px; line-height: 1.8; color: var(--color-text-primary);">
+                <p><strong>费用：</strong>无需配送费</p>
+                <p><strong>速度：</strong>可预约时间</p>
+                <p><strong>说明：</strong>买家和卖家在校园内约定地点和时间，面对面完成交易，最安全直接。</p>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 30px;">
+            <h3 style="color: #d32f2f; margin-top: 0;">🚛 校外快递</h3>
+            <div style="font-size: 16px; line-height: 1.8; color: var(--color-text-primary);">
+                <p><strong>费用：</strong>由双方协商，通常10-50元</p>
+                <p><strong>速度：</strong>3-7个工作日</p>
+                <p><strong>说明：</strong>使用顺丰、圆通等快递，适合需要寄出校园的情况。请事先与卖家沟通快递费承担方式。</p>
+            </div>
+        </div>
+
+        <h2 style="color: var(--color-primary);">⚡ 配送流程</h2>
+        
+        <div style="background: linear-gradient(90deg, #e3f2fd 0%, #f3e5f5 100%); padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+            <p style="text-align: center; font-size: 18px; color: var(--color-primary); margin: 0 0 20px 0; font-weight: bold;">买家下单 → 卖家发货 → 物流运输 → 买家确认 → 交易完成</p>
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px;">
+                <div style="text-align: center;">
+                    <p style="font-size: 24px; margin: 0;">🛒</p>
+                    <p style="font-size: 12px; color: var(--color-text-secondary);">1. 支付订单</p>
+                </div>
+                <div style="text-align: center;">
+                    <p style="font-size: 24px; margin: 0;">📦</p>
+                    <p style="font-size: 12px; color: var(--color-text-secondary);">2. 打包发货</p>
+                </div>
+                <div style="text-align: center;">
+                    <p style="font-size: 24px; margin: 0;">🚚</p>
+                    <p style="font-size: 12px; color: var(--color-text-secondary);">3. 配送中</p>
+                </div>
+                <div style="text-align: center;">
+                    <p style="font-size: 24px; margin: 0;">📍</p>
+                    <p style="font-size: 12px; color: var(--color-text-secondary);">4. 送达/自取</p>
+                </div>
+                <div style="text-align: center;">
+                    <p style="font-size: 24px; margin: 0;">✅</p>
+                    <p style="font-size: 12px; color: var(--color-text-secondary);">5. 确认收货</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="color: var(--color-primary);">📋 配送须知</h2>
+        
+        <div class="card" style="background-color: #fff3e0; margin-bottom: 20px;">
+            <h3 style="color: #e65100; margin-top: 0;">卖家发货须知</h3>
+            <ul style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                <li>收到订单后，应在24小时内确认并准备发货</li>
+                <li>妥善包装商品，避免运输途中损伤</li>
+                <li>及时告知买家发货信息和物流追踪号</li>
+                <li>对校园配送，请提前与对方约定收货地点和时间</li>
+                <li>贵重物品建议购买保价，降低风险</li>
+            </ul>
+        </div>
+
+        <div class="card" style="background-color: #e3f2fd; margin-bottom: 20px;">
+            <h3 style="color: #1565c0; margin-top: 0;">买家收货须知</h3>
+            <ul style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                <li>收货时仔细检查商品是否完整，与描述是否一致</li>
+                <li>如发现问题，拍照保留证据，立即联系卖家或平台</li>
+                <li>确认无误后再确认收货，交易完成后退货会很麻烦</li>
+                <li>对校园配送，请及时到约定地点领取，勿遗忘</li>
+                <li>确认收货后可评价，帮助其他用户了解交易体验</li>
+            </ul>
+        </div>
+
+        <h2 style="color: var(--color-primary);">❓ 配送相关问题</h2>
+        
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0;">如果商品在配送中丢失怎么办？</h3>
+            <p style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                请立即通知我们，我们会协调卖家和物流公司处理。如使用保价服务，可申请理赔。建议使用校园配送或自取方式，可降低丢失风险。
+            </p>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0;">商品损伤了怎么办？</h3>
+            <p style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                收货时请立即拍照保留证据，联系卖家协商赔偿。如是物流原因造成，可向卖家申请索赔。建议购买包装材料好的商品，或选择校园配送减少运输风险。
+            </p>
+        </div>
+
+        <div class="card">
+            <h3 style="color: #0066cc; margin-top: 0;">配送需要多长时间？</h3>
+            <p style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                校园配送通常1-3个工作日，自取可当天完成。校外快递视距离而定，一般3-7个工作日。时间可能因天气、周末等因素延长，请耐心等待。
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

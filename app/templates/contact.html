@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}联系我们 - 东南大学校园二手交易平台{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 40px 0;">
+    <div style="max-width: 900px; margin: 0 auto;">
+        <div style="margin-bottom: 40px; border-bottom: 2px solid var(--color-primary); padding-bottom: 20px;">
+            <h1 style="font-size: 32px; color: var(--color-primary); margin: 0;">联系我们</h1>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px;">
+            <div class="card">
+                <h2 style="color: var(--color-primary); margin-top: 0;">📞 联系方式</h2>
+                <div style="font-size: 16px; line-height: 2; color: var(--color-text-primary);">
+                    <p><strong>邮件：</strong><br>support@seu-secondhand.edu.cn</p>
+                    <p><strong>电话：</strong><br>025-xxxx-xxxx</p>
+                    <p><strong>工作时间：</strong><br>周一至周日 9:00-22:00</p>
+                    <p><strong>地点：</strong><br>东南大学丁家桥校区<br>学生创新中心A楼</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 style="color: var(--color-primary); margin-top: 0;">💬 反馈渠道</h2>
+                <div style="font-size: 16px; line-height: 2; color: var(--color-text-primary);">
+                    <p>📱 在平台右下角点击"客服"与我们在线沟通</p>
+                    <p>✉️ 发送邮件至support@seu-secondhand.edu.cn</p>
+                    <p>📋 填写意见反馈表（在个人资料页面）</p>
+                    <p>👥 加入官方QQ群了解最新动态</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 style="color: var(--color-primary); margin-top: 0;">✨ 我们重视您的反馈</h2>
+            <p style="font-size: 16px; line-height: 1.8; color: var(--color-text-primary);">
+                无论您是对平台的建议，还是遇到的问题，我们都非常欢迎您的反馈。我们的团队会在24小时内回复您的邮件，致力于为您提供更好的服务体验。
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: var(--color-text-secondary);">
+                如果您对某笔交易有疑问，也可以在订单详情页申请客服介入，我们会公平公正地处理您的问题。
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

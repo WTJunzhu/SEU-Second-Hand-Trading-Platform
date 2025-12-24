@@ -1,18 +1,294 @@
 {% extends "base.html" %}
 
+{% block title %}商品详情 - 东南大学校园二手交易平台{% endblock %}
+
 {% block content %}
-<h1>商品详情</h1>
-<!-- 商品详细信息 -->
-<div class="item-detail">
-    <div class="item-image">
-        <!-- 商品图片 -->
+<div class="container" style="margin-top: var(--spacing-2xl); margin-bottom: var(--spacing-2xl);">
+    <!-- 加载骨架屏 -->
+    <div id="loading-skeleton" class="grid grid--cols-2">
+        <div class="skeleton" style="height: 400px;"></div>
+        <div>
+            <div class="skeleton" style="height: 40px; margin-bottom: var(--spacing-md);"></div>
+            <div class="skeleton" style="height: 100px; margin-bottom: var(--spacing-md);"></div>
+            <div class="skeleton" style="height: 30px; margin-bottom: var(--spacing-md);"></div>
+            <div class="skeleton" style="height: 30px;"></div>
+        </div>
     </div>
-    <div class="item-info">
-        <h2>商品名称</h2>
-        <p>商品描述</p>
-        <p>价格: ¥<span class="price">0.00</span></p>
-        <p>库存: <span class="stock">0</span></p>
-        <button id="add-to-cart">加入购物车</button>
+
+    <!-- 详情内容 -->
+    <div id="detail-content" style="display: none; grid-template-columns: 1fr 1fr; gap: var(--spacing-2xl); grid-template-rows: auto;" class="grid">
+        <!-- 左侧：图片 -->
+        <div>
+            <div style="background: var(--color-bg-tertiary); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: var(--spacing-lg);">
+                <img id="main-image" src="" alt="商品图片" style="width: 100%; height: 400px; object-fit: cover;">
+            </div>
+            <!-- 缩略图列表 -->
+            <div id="thumbnails" class="grid grid--cols-4" style="gap: var(--spacing-sm);">
+            </div>
+        </div>
+
+        <!-- 右侧：信息 -->
+        <div>
+            <!-- 分类 -->
+            <span id="category-badge" class="badge badge--primary" style="margin-bottom: var(--spacing-md);"></span>
+
+            <!-- 标题 -->
+            <h1 id="item-title" style="margin-bottom: var(--spacing-md);"></h1>
+
+            <!-- 描述 -->
+            <p id="item-description" style="margin-bottom: var(--spacing-lg); color: var(--color-text-secondary); line-height: var(--line-height-relaxed);"></p>
+
+            <!-- 价格和库存 -->
+            <div class="card" style="margin-bottom: var(--spacing-lg); padding: var(--spacing-lg);">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+                    <div>
+                        <div class="text-muted" style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-sm);">售价</div>
+                        <div class="text-2xl font-bold" style="color: var(--color-primary); font-size: var(--font-size-2xl);">
+                            ¥<span id="item-price">0</span>.00
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-muted" style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-sm);">库存</div>
+                        <div class="font-bold" style="font-size: var(--font-size-lg);">
+                            <span id="item-stock">0</span> 件
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 数量选择 -->
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label">购买数量</label>
+                    <div style="display: flex; gap: var(--spacing-sm);">
+                        <button id="decrease-qty" class="btn btn--secondary" style="width: 40px;">−</button>
+                        <input id="quantity" type="number" class="form-input" value="1" min="1" max="99" style="flex: 1; text-align: center;">
+                        <button id="increase-qty" class="btn btn--secondary" style="width: 40px;">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 卖家信息 -->
+            <div class="card" style="margin-bottom: var(--spacing-lg); padding: var(--spacing-lg);">
+                <h3 style="margin-top: 0;">卖家信息</h3>
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--color-bg-tertiary); display: flex; align-items: center; justify-content: center; font-size: 24px;">
+                        👤
+                    </div>
+                    <div>
+                        <div class="font-bold" id="seller-name"></div>
+                        <div class="text-sm text-muted" id="seller-info"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                <button id="add-to-cart-btn" class="btn btn--primary btn--lg">
+                    🛒 加入购物车
+                </button>
+                <button id="buy-now-btn" class="btn btn--secondary btn--lg">
+                    立即购买
+                </button>
+            </div>
+
+            <!-- 提示 -->
+            <div id="stock-warning" class="alert alert--warning" style="margin-top: var(--spacing-lg); display: none;">
+                ⚠️ 库存不足，无法购买
+            </div>
+        </div>
+
+        <!-- 商品详情标签页 -->
+        <div style="grid-column: 1 / -1; margin-top: var(--spacing-2xl);">
+            <div style="border-bottom: 2px solid var(--color-border); margin-bottom: var(--spacing-lg);">
+                <button class="tab-button is-active" data-tab="details" style="border: none; background: none; padding: var(--spacing-md); cursor: pointer; font-weight: 600; border-bottom: 3px solid var(--color-primary); margin-bottom: -2px;">
+                    商品详情
+                </button>
+                <button class="tab-button" data-tab="reviews" style="border: none; background: none; padding: var(--spacing-md); cursor: pointer; font-weight: 600;">
+                    评价 (<span id="review-count">0</span>)
+                </button>
+            </div>
+
+            <!-- 详情标签 -->
+            <div id="details-tab" class="tab-content is-active">
+                <div class="card">
+                    <div class="card__body">
+                        <h3>商品详细信息</h3>
+                        <table class="table">
+                            <tr>
+                                <th>商品分类</th>
+                                <td id="detail-category">-</td>
+                            </tr>
+                            <tr>
+                                <th>发布时间</th>
+                                <td id="detail-published">-</td>
+                            </tr>
+                            <tr>
+                                <th>浏览次数</th>
+                                <td id="detail-views">-</td>
+                            </tr>
+                            <tr>
+                                <th>描述</th>
+                                <td id="detail-description">-</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 评价标签 -->
+            <div id="reviews-tab" class="tab-content" style="display: none;">
+                <div id="reviews-list" class="card">
+                    <div class="card__body">
+                        <div class="empty-state">
+                            <div class="empty-state__icon">💬</div>
+                            <div class="empty-state__title">暂无评价</div>
+                            <p class="empty-state__description">购买后可以为此商品进行评价</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+/**
+ * 商品详情页逻辑
+ */
+class ItemDetailPage {
+    constructor() {
+        const itemId = window.location.pathname.split('/').pop();
+        this.itemId = itemId;
+        this.item = null;
+        this.init();
+    }
+
+    async init() {
+        await this.loadItemDetail();
+        this.setupEventListeners();
+    }
+
+    async loadItemDetail() {
+        try {
+            const response = await API.item.getDetail(this.itemId);
+            this.item = response.data;
+            this.renderDetail();
+        } catch (error) {
+            LoadingManager.hide();
+            NotificationManager.error('加载商品信息失败');
+            console.error('加载商品失败:', error);
+            setTimeout(() => {
+                window.history.back();
+            }, 2000);
+        }
+    }
+
+    renderDetail() {
+        const item = this.item;
+
+        // 隐藏骨架屏，显示内容
+        document.getElementById('loading-skeleton').style.display = 'none';
+        document.getElementById('detail-content').style.display = 'grid';
+
+        // 图片
+        document.getElementById('main-image').src = item.image || '/static/images/placeholder.png';
+
+        // 基本信息
+        document.getElementById('item-title').textContent = item.title;
+        document.getElementById('item-description').textContent = item.description;
+        document.getElementById('item-price').textContent = item.price.toFixed(2);
+        document.getElementById('item-stock').textContent = item.stock;
+        document.getElementById('category-badge').textContent = item.category || '未分类';
+
+        // 卖家信息
+        document.getElementById('seller-name').textContent = item.seller_name || '未知卖家';
+        document.getElementById('seller-info').textContent = `评分: ${(item.seller_rating || 0).toFixed(1)} ⭐`;
+
+        // 详情信息
+        document.getElementById('detail-category').textContent = item.category || '-';
+        document.getElementById('detail-published').textContent = new Date(item.created_at).toLocaleDateString('zh-CN');
+        document.getElementById('detail-views').textContent = item.views || 0;
+        document.getElementById('detail-description').textContent = item.description;
+
+        // 库存状态
+        if (item.stock <= 0) {
+            document.getElementById('stock-warning').style.display = 'block';
+            document.getElementById('quantity').disabled = true;
+            document.getElementById('add-to-cart-btn').disabled = true;
+            document.getElementById('buy-now-btn').disabled = true;
+        }
+
+        // 更新数量限制
+        const quantityInput = document.getElementById('quantity');
+        quantityInput.max = item.stock;
+    }
+
+    setupEventListeners() {
+        // 数量调整
+        document.getElementById('decrease-qty').addEventListener('click', () => {
+            const input = document.getElementById('quantity');
+            const value = parseInt(input.value) || 1;
+            if (value > 1) {
+                input.value = value - 1;
+            }
+        });
+
+        document.getElementById('increase-qty').addEventListener('click', () => {
+            const input = document.getElementById('quantity');
+            const value = parseInt(input.value) || 1;
+            if (value < this.item.stock) {
+                input.value = value + 1;
+            }
+        });
+
+        // 加入购物车
+        document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            CartManager.addItem({
+                itemId: this.itemId,
+                title: this.item.title,
+                price: this.item.price,
+                quantity,
+            });
+        });
+
+        // 立即购买
+        document.getElementById('buy-now-btn').addEventListener('click', () => {
+            if (!AuthManager.isLoggedIn()) {
+                NotificationManager.warning('请先登录');
+                window.location.href = `/login?redirect=/checkout`;
+                return;
+            }
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            CartManager.addItem({
+                itemId: this.itemId,
+                title: this.item.title,
+                price: this.item.price,
+                quantity,
+            });
+            setTimeout(() => {
+                window.location.href = '/checkout';
+            }, 500);
+        });
+
+        // 标签页切换
+        document.querySelectorAll('.tab-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabName = btn.dataset.tab;
+                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('is-active'));
+                document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+                btn.classList.add('is-active');
+                document.getElementById(tabName + '-tab').style.display = 'block';
+            });
+        });
+    }
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', () => {
+    new ItemDetailPage();
+});
+</script>
 {% endblock %}

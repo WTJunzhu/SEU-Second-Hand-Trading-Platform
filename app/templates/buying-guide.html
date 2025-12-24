@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}购买指南 - 东南大学校园二手交易平台{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 40px 0;">
+    <div style="max-width: 900px; margin: 0 auto;">
+        <div style="margin-bottom: 40px; border-bottom: 2px solid var(--color-primary); padding-bottom: 20px;">
+            <h1 style="font-size: 32px; color: var(--color-primary); margin: 0;">购买指南</h1>
+        </div>
+
+        <h2 style="color: var(--color-primary);">🛒 购物流程</h2>
+        
+        <div style="position: relative; padding-left: 50px; margin-bottom: 30px;">
+            <div style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+            <div class="card">
+                <h3 style="color: var(--color-primary); margin-top: 0;">浏览和搜索</h3>
+                <p style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                    在首页或搜索页浏览商品，可以通过关键词搜索、分类筛选、价格排序等方式找到您想要的商品。仔细查看商品图片、描述、价格和卖家信息。
+                </p>
+            </div>
+        </div>
+
+        <div style="position: relative; padding-left: 50px; margin-bottom: 30px;">
+            <div style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+            <div class="card">
+                <h3 style="color: var(--color-primary); margin-top: 0;">查看详情和咨询</h3>
+                <p style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                    点击商品进入详情页，查看完整的图片、描述、价格、库存和卖家信息。如有疑问，可以点击"联系卖家"与其沟通，了解商品的更多细节。
+                </p>
+            </div>
+        </div>
+
+        <div style="position: relative; padding-left: 50px; margin-bottom: 30px;">
+            <div style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+            <div class="card">
+                <h3 style="color: var(--color-primary); margin-top: 0;">加入购物车</h3>
+                <p style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                    确认商品信息后，选择购买数量，点击"加入购物车"。您可以继续浏览其他商品，也可以随时查看和修改购物车内容。
+                </p>
+            </div>
+        </div>
+
+        <div style="position: relative; padding-left: 50px; margin-bottom: 30px;">
+            <div style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
+            <div class="card">
+                <h3 style="color: var(--color-primary); margin-top: 0;">结账和支付</h3>
+                <p style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                    进入购物车，查看订单明细，选择收货地址和支付方式，完成支付。系统会给您一个订单号，请妥善保管以便查询。
+                </p>
+            </div>
+        </div>
+
+        <div style="position: relative; padding-left: 50px; margin-bottom: 30px;">
+            <div style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">5</div>
+            <div class="card">
+                <h3 style="color: var(--color-primary); margin-top: 0;">等待发货和收货</h3>
+                <p style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                    卖家收到付款后会尽快发货。您可以在订单详情页跟踪发货进展。收货时请检查商品是否与描述一致，如有问题可立即联系卖家或平台。
+                </p>
+            </div>
+        </div>
+
+        <div style="position: relative; padding-left: 50px; margin-bottom: 30px;">
+            <div style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">6</div>
+            <div class="card">
+                <h3 style="color: var(--color-primary); margin-top: 0;">确认收货和评价</h3>
+                <p style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                    收货后请及时确认，交易即刻完成。您可以为卖家和商品留下评价和反馈，帮助其他买家了解这个卖家的信誉和商品质量。
+                </p>
+            </div>
+        </div>
+
+        <!-- 支付方式 -->
+        <h2 style="color: var(--color-primary);">💳 支付方式</h2>
+        <div class="card" style="margin-bottom: 30px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <div style="text-align: center; padding: 20px;">
+                    <p style="font-size: 24px; margin: 0 0 10px 0;">🔗 微信支付</p>
+                    <p style="color: var(--color-text-secondary); font-size: 14px;">快速便捷，实时到账</p>
+                </div>
+                <div style="text-align: center; padding: 20px;">
+                    <p style="font-size: 24px; margin: 0 0 10px 0;">🟠 支付宝</p>
+                    <p style="color: var(--color-text-secondary); font-size: 14px;">安全可靠，余额宝可用</p>
+                </div>
+                <div style="text-align: center; padding: 20px;">
+                    <p style="font-size: 24px; margin: 0 0 10px 0;">💰 银行卡</p>
+                    <p style="color: var(--color-text-secondary); font-size: 14px;">支持主流银行卡</p>
+                </div>
+                <div style="text-align: center; padding: 20px;">
+                    <p style="font-size: 24px; margin: 0 0 10px 0;">🤝 校园卡</p>
+                    <p style="color: var(--color-text-secondary); font-size: 14px;">校内充值，方便快捷</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 购物建议 -->
+        <h2 style="color: var(--color-primary);">📌 购物建议</h2>
+        
+        <div class="card" style="background-color: #f0f5ff; margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0;">✅ 安全购物建议</h3>
+            <ul style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                <li><strong>选择信誉好的卖家</strong> - 优先购买高评分和好评率高的卖家的商品</li>
+                <li><strong>仔细查看商品</strong> - 阅读完整描述，看清所有图片，留意是否有缺陷说明</li>
+                <li><strong>询问清楚</strong> - 有任何疑问都可以在购买前咨询卖家</li>
+                <li><strong>只通过平台支付</strong> - 切勿支付给私人账户，以免被骗</li>
+                <li><strong>检查商品</strong> - 收货时立即检查，不符合描述可申请退货</li>
+            </ul>
+        </div>
+
+        <div class="card" style="background-color: #fff3e0; margin-bottom: 20px;">
+            <h3 style="color: #e65100; margin-top: 0;">⚠️ 需要小心的情况</h3>
+            <ul style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                <li><strong>价格过低</strong> - 警惕价格远低于市场价的商品，可能是假货或问题品</li>
+                <li><strong>图片模糊</strong> - 不要购买看不清细节的商品，可能隐藏缺陷</li>
+                <li><strong>卖家未验证</strong> - 优先选择经过身份验证的校园账户</li>
+                <li><strong>无法沟通</strong> - 卖家不回复询问可能表示问题商品</li>
+                <li><strong>要求私下支付</strong> - 绝对不要同意私下转账，这是诈骗常用手段</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3 style="color: #0066cc; margin-top: 0;">🔄 退货和售后</h3>
+            <p style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                如果收到的商品与描述不符，您可以在收货后7天内申请退货。平台会协调卖家和买家处理纠纷。为了保护您的权益，请妥善保管商品和包装，收货时拍照保留证据。
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

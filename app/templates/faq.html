@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+{% block title %}常见问题 - 东南大学校园二手交易平台{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 40px 0;">
+    <div style="max-width: 900px; margin: 0 auto;">
+        <div style="margin-bottom: 40px; border-bottom: 2px solid var(--color-primary); padding-bottom: 20px;">
+            <h1 style="font-size: 32px; color: var(--color-primary); margin: 0;">常见问题</h1>
+        </div>
+
+        <h2 style="color: var(--color-primary); font-size: 20px; margin: 40px 0 20px 0;">👤 账户相关</h2>
+        
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 如何注册账户？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                点击"注册"，使用@seu.edu.cn邮箱注册。输入邮箱、密码、用户名后，会发送验证邮件到您的邮箱，点击链接确认即可。推荐完善个人资料和实名认证，可提高交易信任度。
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 忘记密码怎么办？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                在登录页点击"忘记密码"，输入注册邮箱，我们会发送重置链接到您的邮箱。点击链接后可设置新密码。如长时间未收到邮件，请检查垃圾邮件文件夹。
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 能用其他邮箱注册吗？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                目前只支持@seu.edu.cn校园邮箱注册，这是为了保证平台内所有用户都是东南大学的真实学生或教职工，维护交易安全。
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 30px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 如何修改个人信息？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                进入"个人资料"页面，在"个人信息"标签页可修改头像、昵称、手机号等信息。实名认证完成后无法修改，请谨慎。
+            </div>
+        </div>
+
+        <h2 style="color: var(--color-primary); font-size: 20px; margin: 40px 0 20px 0;">🛍️ 购物相关</h2>
+        
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 如何搜索商品？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                在首页或导航栏的搜索框输入商品关键词（如"MacBook"），或使用分类和筛选功能快速定位。您也可以按价格、发布时间等排序。
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 购物车的商品会过期吗？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                购物车内的商品不会过期，但如果商品被卖家下架或售完，结账时会自动移除。建议收藏喜欢的商品以免丢失。
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 能降价吗？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                商品价格由卖家设定。您可以在商品详情页"联系卖家"，与卖家直接沟通协商。很多卖家愿意为诚心购买者提供优惠。
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 30px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 支持什么支付方式？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                支持微信支付、支付宝、银行卡和校园卡。所有支付都是通过安全加密通道，您的资金信息完全保护。
+            </div>
+        </div>
+
+        <h2 style="color: var(--color-primary); font-size: 20px; margin: 40px 0 20px 0;">📦 发货和配送</h2>
+        
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 多久能收到商品？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                校园配送通常1-3个工作日送达。卖家会在24小时内确认并打包，之后根据选择的配送方式送达。具体时间在下单时会显示。
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 配送费用是多少？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                校园配送完全免费！校内自取也不需要费用。校外快递或卖家自送的费用由双方协商。下单时会清楚显示各种配送方式的费用。
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 如何跟踪订单？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                进入"个人资料"→"我的订单"，可查看订单状态和物流追踪。卖家也会通过消息告知您发货进度。如使用快递，会显示快递单号供查询。
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 30px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 商品破损了怎么办？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                收货时请立即拍照保留证据，联系卖家协商赔偿方案。如是物流原因导致，卖家可向物流公司索赔。您有7天的退货期限，可申请退货或换货。
+            </div>
+        </div>
+
+        <h2 style="color: var(--color-primary); font-size: 20px; margin: 40px 0 20px 0;">💰 交易和退款</h2>
+        
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 如何申请退款？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                在"我的订单"中找到相应订单，点击"申请退款"。如已确认收货，需在7天内申请退货。平台会协调卖家处理，通常3-5个工作日完成。
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 退货后多久能收到退款？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                卖家收到退货并检查确认后，会申请退款。退款通常在3-5个工作日内原路返回您的账户。如长时间未收到，可联系平台客服。
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 30px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 商品与描述不符可以退货吗？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                如商品与描述差异较大，您可在收货后7天内申请退货。请拍照保留证据，与卖家沟通。如无法协商，可申请平台介入。
+            </div>
+        </div>
+
+        <h2 style="color: var(--color-primary); font-size: 20px; margin: 40px 0 20px 0;">📤 发布商品</h2>
+        
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 发布商品要多少钱？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                发布商品完全免费！只有成功交易后，平台才会收取5%的手续费。这是我们维持平台运营的费用。
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 商品多久能审核完？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                通常在1小时内审核完成。如果包含不规范内容（如虚假信息、违禁品等），会被拒绝。您可以修改后重新提交。
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 如何提高商品曝光率？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                清晰准确的标题、详细的描述、高质量的照片都能提高点击率。定期更新商品信息，合理的定价，以及保持好的评分都很重要。
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 30px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 可以同时发布多个商品吗？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                可以！您可以发布多个商品。每个商品都需要独立审核。为提高效率，建议一次不要发布超过10个商品。
+            </div>
+        </div>
+
+        <h2 style="color: var(--color-primary); font-size: 20px; margin: 40px 0 20px 0;">🔒 安全和隐私</h2>
+        
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 我的个人信息会被泄露吗？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                我们采用业界最高的信息加密标准保护您的数据。只有交易相关方（买家、卖家）才能看到必要的信息。我们不会将您的信息分享给第三方。
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 如何举报违规内容？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                在任何不规范的商品或用户上，可点击"举报"按钮。提供详细的举报原因和证据，我们会在24小时内审核处理。
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 style="color: #0066cc; margin-top: 0; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
+                ▼ 账户被盗用了怎么办？
+            </h3>
+            <div style="display: none; color: var(--color-text-primary); font-size: 15px; line-height: 1.8;">
+                立即修改密码或联系客服冻结账户。请勿进行任何交易。我们会帮您排查异常活动，恢复账户安全。建议定期修改密码并开启二次认证。
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card h3 {
+        cursor: pointer;
+        user-select: none;
+    }
+    .card h3:hover {
+        color: var(--color-primary-dark) !important;
+    }
+</style>
+{% endblock %}

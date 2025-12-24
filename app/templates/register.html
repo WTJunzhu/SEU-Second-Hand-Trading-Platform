@@ -1,26 +1,261 @@
 {% extends "base.html" %}
 
+{% block title %}注册账号 - 东南大学校园二手交易平台{% endblock %}
+
 {% block content %}
-<h1>用户注册</h1>
-<!-- 注册表单 -->
-<form method="POST">
-    <div>
-        <label for="username">用户名:</label>
-        <input type="text" id="username" name="username" required>
+<div class="page-header">
+    <div class="container">
+        <h1>创建账号</h1>
+        <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 0;">加入 SEU 校园二手交易平台</p>
     </div>
-    <div>
-        <label for="email">邮箱:</label>
-        <input type="email" id="email" name="email" required>
+</div>
+
+<div class="container">
+    <div class="card" style="max-width: 500px; margin: var(--spacing-2xl) auto;">
+        <div class="card__body">
+            <form id="register-form">
+                <!-- 用户名 -->
+                <div class="form-group">
+                    <label class="form-label" for="username">用户名</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="form-input" 
+                        placeholder="3-16个字符，只能包含字母、数字和下划线"
+                        required
+                    >
+                    <div class="form-error"></div>
+                    <div class="form-hint">用户名将作为您的公开身份</div>
+                </div>
+
+                <!-- SEU 邮箱 -->
+                <div class="form-group">
+                    <label class="form-label" for="email">SEU 邮箱</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="form-input" 
+                        placeholder="example@seu.edu.cn"
+                        required
+                    >
+                    <div class="form-error"></div>
+                    <div class="form-hint">仅接受 @seu.edu.cn 邮箱</div>
+                </div>
+
+                <!-- 密码 -->
+                <div class="form-group">
+                    <label class="form-label" for="password">密码</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-input" 
+                        placeholder="至少8个字符，需包含大小写字母和数字"
+                        required
+                    >
+                    <div class="form-error"></div>
+                    <div class="form-hint">
+                        密码强度要求：
+                        <ul style="margin: var(--spacing-sm) 0; padding-left: var(--spacing-lg); font-size: var(--font-size-sm);">
+                            <li>至少8个字符</li>
+                            <li>包含大写字母 (A-Z)</li>
+                            <li>包含小写字母 (a-z)</li>
+                            <li>包含数字 (0-9)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 确认密码 -->
+                <div class="form-group">
+                    <label class="form-label" for="confirm-password">确认密码</label>
+                    <input 
+                        type="password" 
+                        id="confirm-password" 
+                        name="confirm_password" 
+                        class="form-input" 
+                        placeholder="再次输入密码"
+                        required
+                    >
+                    <div class="form-error"></div>
+                </div>
+
+                <!-- 协议同意 -->
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: var(--spacing-sm); cursor: pointer;">
+                        <input type="checkbox" id="agree" name="agree" required>
+                        <span>我已阅读并同意<a href="#">用户协议</a>和<a href="#">隐私政策</a></span>
+                    </label>
+                    <div class="form-error"></div>
+                </div>
+
+                <!-- 提交按钮 -->
+                <button type="submit" class="btn btn--primary btn--lg btn--block">
+                    创建账号
+                </button>
+
+                <!-- 登录链接 -->
+                <div style="text-align: center; margin-top: var(--spacing-lg);">
+                    <p style="margin: 0;">已有账号？<a href="/login">立即登录</a></p>
+                </div>
+            </form>
+        </div>
     </div>
-    <div>
-        <label for="password">密码:</label>
-        <input type="password" id="password" name="password" required>
-    </div>
-    <div>
-        <label for="confirm_password">确认密码:</label>
-        <input type="password" id="confirm_password" name="confirm_password" required>
-    </div>
-    <button type="submit">注册</button>
-</form>
-<a href="{{ url_for('login') }}">已有账户？立即登录</a>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+/**
+ * 注册页面逻辑
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('register-form');
+    const fields = {
+        username: document.getElementById('username'),
+        email: document.getElementById('email'),
+        password: document.getElementById('password'),
+        confirm_password: document.getElementById('confirm-password'),
+        agree: document.getElementById('agree'),
+    };
+
+    /**
+     * 验证单个字段
+     */
+    const validateField = (fieldName) => {
+        const field = fields[fieldName];
+        const errorEl = field.parentElement.querySelector('.form-error');
+        let error = null;
+
+        switch (fieldName) {
+            case 'username':
+                error = FormValidator.validateField('username', field.value);
+                break;
+            case 'email':
+                error = FormValidator.validateField('seu_email', field.value);
+                break;
+            case 'password':
+                error = FormValidator.validateField('password', field.value);
+                break;
+            case 'confirm_password':
+                if (field.value !== fields.password.value) {
+                    error = '两次输入的密码不一致';
+                }
+                break;
+            case 'agree':
+                if (!field.checked) {
+                    error = '请同意用户协议和隐私政策';
+                }
+                break;
+        }
+
+        if (error) {
+            errorEl.textContent = error;
+            errorEl.classList.add('is-visible');
+        } else {
+            errorEl.classList.remove('is-visible');
+        }
+
+        return !error;
+    };
+
+    /**
+     * 实时验证
+     */
+    Object.entries(fields).forEach(([name, field]) => {
+        field.addEventListener('change', () => validateField(name));
+        field.addEventListener('blur', () => validateField(name));
+    });
+
+    /**
+     * 表单提交
+     */
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // 验证所有字段
+        let isValid = true;
+        Object.keys(fields).forEach(fieldName => {
+            if (!validateField(fieldName)) {
+                isValid = false;
+            }
+        });
+
+        if (!isValid) return;
+
+        // 提交注册
+        LoadingManager.show('正在创建账号...');
+        
+        try {
+            const response = await API.user.register({
+                username: fields.username.value,
+                email: fields.email.value,
+                password: fields.password.value,
+            });
+
+            LoadingManager.hide();
+            NotificationManager.success('注册成功，请登录');
+            
+            // 重定向到登录页
+            setTimeout(() => {
+                window.location.href = '/login';
+            }, 2000);
+        } catch (error) {
+            LoadingManager.hide();
+            
+            if (error.statusCode === 400 && error.data?.message) {
+                NotificationManager.error(error.data.message);
+            } else {
+                NotificationManager.error('注册失败，请稍后重试');
+            }
+        }
+    });
+
+    /**
+     * 检查用户名可用性
+     */
+    let usernameCheckTimeout;
+    fields.username.addEventListener('input', () => {
+        clearTimeout(usernameCheckTimeout);
+        usernameCheckTimeout = setTimeout(async () => {
+            if (FormValidator.isValidUsername(fields.username.value)) {
+                try {
+                    const response = await API.user.checkUsername(fields.username.value);
+                    if (response.data?.available === false) {
+                        const errorEl = fields.username.parentElement.querySelector('.form-error');
+                        errorEl.textContent = '用户名已被占用';
+                        errorEl.classList.add('is-visible');
+                    }
+                } catch (error) {
+                    console.error('检查用户名失败:', error);
+                }
+            }
+        }, 500);
+    });
+
+    /**
+     * 检查邮箱可用性
+     */
+    let emailCheckTimeout;
+    fields.email.addEventListener('input', () => {
+        clearTimeout(emailCheckTimeout);
+        emailCheckTimeout = setTimeout(async () => {
+            if (FormValidator.isValidEmail(fields.email.value)) {
+                try {
+                    const response = await API.user.checkEmail(fields.email.value);
+                    if (response.data?.available === false) {
+                        const errorEl = fields.email.parentElement.querySelector('.form-error');
+                        errorEl.textContent = '邮箱已被注册';
+                        errorEl.classList.add('is-visible');
+                    }
+                } catch (error) {
+                    console.error('检查邮箱失败:', error);
+                }
+            }
+        }, 500);
+    });
+});
+</script>
 {% endblock %}

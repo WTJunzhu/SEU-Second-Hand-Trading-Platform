@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}如何发布商品 - 东南大学校园二手交易平台{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 40px 0;">
+    <div style="max-width: 900px; margin: 0 auto;">
+        <div style="margin-bottom: 40px; border-bottom: 2px solid var(--color-primary); padding-bottom: 20px;">
+            <h1 style="font-size: 32px; color: var(--color-primary); margin: 0;">如何发布商品</h1>
+        </div>
+
+        <div class="card" style="background-color: #e8f5e9; margin-bottom: 30px; border-left: 4px solid #52c41a;">
+            <p style="font-size: 16px; color: #2e7d32; margin: 0;">
+                📢 发布商品是免费的！按照以下步骤发布您的商品，让更多校园师生看到您的好物。
+            </p>
+        </div>
+
+        <!-- 发布步骤 -->
+        <h2 style="color: var(--color-primary);">📋 发布步骤</h2>
+        
+        <div style="position: relative; padding-left: 50px; margin-bottom: 30px;">
+            <div style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px;">1</div>
+            <div class="card">
+                <h3 style="color: var(--color-primary); margin-top: 0;">登录后点击"发布商品"</h3>
+                <p style="color: var(--color-text-secondary);">在导航栏或个人资料页面找到"发布商品"按钮</p>
+            </div>
+        </div>
+
+        <div style="position: relative; padding-left: 50px; margin-bottom: 30px;">
+            <div style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px;">2</div>
+            <div class="card">
+                <h3 style="color: var(--color-primary); margin-top: 0;">填写商品基本信息</h3>
+                <ul style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                    <li><strong>商品标题</strong> - 简明扼要，包含品牌和型号（必填）</li>
+                    <li><strong>商品分类</strong> - 选择最相关的分类（必填）</li>
+                    <li><strong>商品价格</strong> - 设置合理的价格（必填）</li>
+                    <li><strong>库存数量</strong> - 输入可售数量（必填）</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="position: relative; padding-left: 50px; margin-bottom: 30px;">
+            <div style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px;">3</div>
+            <div class="card">
+                <h3 style="color: var(--color-primary); margin-top: 0;">上传商品图片</h3>
+                <ul style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                    <li>上传3-10张高清图片（必须上传至少1张）</li>
+                    <li>第一张将作为商品缩略图</li>
+                    <li>展示商品整体、细节和缺陷（如有）</li>
+                    <li>支持JPG、PNG格式，单张不超过5MB</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="position: relative; padding-left: 50px; margin-bottom: 30px;">
+            <div style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px;">4</div>
+            <div class="card">
+                <h3 style="color: var(--color-primary); margin-top: 0;">编写详细描述</h3>
+                <ul style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                    <li>清楚说明商品的新旧程度和功能状况</li>
+                    <li>说明是否有划痕、磕碰等缺陷</li>
+                    <li>如果有配件，详细列出（如盒子、说明书、充电器等）</li>
+                    <li>说明您不接受的付款或配送方式（如有）</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="position: relative; padding-left: 50px; margin-bottom: 30px;">
+            <div style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px;">5</div>
+            <div class="card">
+                <h3 style="color: var(--color-primary); margin-top: 0;">检查并发布</h3>
+                <ul style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                    <li>预览商品信息是否正确无误</li>
+                    <li>确认图片清晰度和排序</li>
+                    <li>点击"发布"按钮</li>
+                    <li>商品通常在1小时内审核完成</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 最佳实践 -->
+        <h2 style="color: var(--color-primary);">💡 发布商品的最佳实践</h2>
+        
+        <div class="card" style="background-color: #fff3e0; margin-bottom: 20px;">
+            <h3 style="color: #e65100; margin-top: 0;">📸 拍摄技巧</h3>
+            <ul style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                <li>在光线充足的地方拍摄，避免出现暗淡和模糊</li>
+                <li>从不同角度展示商品（正面、侧面、背面）</li>
+                <li>拍摄商品的细节和可能的缺陷部分</li>
+                <li>如果商品有外包装，也应该拍摄包装的完整性</li>
+            </ul>
+        </div>
+
+        <div class="card" style="background-color: #e3f2fd; margin-bottom: 20px;">
+            <h3 style="color: #1565c0; margin-top: 0;">✍️ 标题和描述</h3>
+            <ul style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                <li>标题应包含品牌、型号、主要特征（如"苹果MacBook Pro 15英寸 2023年款"）</li>
+                <li>诚实描述商品状况，明确标注所有缺陷</li>
+                <li>说明商品的来源和购买时间（有助于确定价值）</li>
+                <li>如有特殊优势（如保修、配件齐全），也应突出强调</li>
+            </ul>
+        </div>
+
+        <div class="card" style="background-color: #f3e5f5; margin-bottom: 20px;">
+            <h3 style="color: #6a1b9a; margin-top: 0;">💰 定价策略</h3>
+            <ul style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">
+                <li>查看平台上同类商品的价格，设置有竞争力的价格</li>
+                <li>考虑商品的新旧程度、使用时间和磨损程度</li>
+                <li>定价过高可能难以成交，过低可能吃亏</li>
+                <li>新上架时可以设置适当的折扣吸引关注</li>
+            </ul>
+        </div>
+
+        <!-- 常见问题 -->
+        <h2 style="color: var(--color-primary);">❓ 常见问题</h2>
+        
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0;">发布商品需要费用吗？</h3>
+            <p style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">不需要，发布商品完全免费！但成功交易后，平台会收取少量手续费（通常为商品价格的5%）。</p>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h3 style="color: #0066cc; margin-top: 0;">商品被拒绝发布怎么办？</h3>
+            <p style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">如果商品不符合发布规范，我们会通过邮件告知原因，您可以修改后重新提交。常见原因包括图片不清晰、描述不完整、价格不合理等。</p>
+        </div>
+
+        <div class="card">
+            <h3 style="color: #0066cc; margin-top: 0;">如何编辑或删除已发布的商品？</h3>
+            <p style="color: var(--color-text-primary); font-size: 16px; line-height: 1.8;">在"个人资料"→"我发布的商品"中，可以编辑或下架商品。已售出的商品无法编辑，但可以作为历史记录保留。</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
